@@ -11,8 +11,6 @@
 #include "TMath.h"
 #include "TStyle.h"
 
-//So Far no edits have been made. this is the same as the Plot_UE2 code
-//I should edit this to loop over the Histo Files for each run and extract information on the UE of the mass correction for each bin so I can make plots
 
 //--->START MAIN PROGRAM
 //________________________________________________________________________________
@@ -27,7 +25,7 @@ void Plot_UE(const Char_t *dirname= "/Users/Nick/Run15/DijetAsymmetryAnalysis/Hi
   gStyle->SetOptFit(1);
 
   //Topology Selection
-  const int topol = 1; // 0 = EW, 1 = EEWW, 2 = Full
+  const int topol = 0; // 0 = EW, 1 = EEWW, 2 = Full
 
   const int yscalebool = 1;
 

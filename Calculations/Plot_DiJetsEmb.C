@@ -30,7 +30,7 @@ void Plot_DiJetsEmb(const Char_t *eachfile= "/Users/Nick/Run15/DijetAsymmetryAna
   const int iJet = 0;  //0 = High, 1 = low
 
   //Topology Selection
-  const int topol = 1; //0 = EW, 1 = EEWW, 2 = Full
+  const int topol = 0; //0 = EW, 1 = EEWW, 2 = Full
 
   
   

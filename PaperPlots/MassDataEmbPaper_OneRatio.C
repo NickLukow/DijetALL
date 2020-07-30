@@ -2,10 +2,12 @@
  * Comparring Rt for data and embedding samples
  *
  * @author Maria Zurek
+ Edited by Nick Lukow 
+ Added histogram option changing method
+ Minor changes to plot Dijet variables
  */
 
 
-//Still original... Make sever edits to turn this into the angle comparison code (copy chunks from that code and use the plot formatted here...)
 
 #include <string>
 #include "Riostream.h"
@@ -181,7 +183,7 @@ void MassDataEmbPaper_OneRatio(){
 //<-------Inserted Code
 
 // Second axis with labels
-  const char *ParMass[7]  = {"18.2", "22.0", "26.8", "32.7", "39.6", "49.5", "68.0"};
+  const char *ParMass[7]  = {"18.8", "22.0", "26.8", "32.7", "39.7", "49.5", "68.0"};
   TH1D *hEmbDijetMassCopy = (TH1D*)hR15EmbMass[1]->Clone("hEmbDijetMassCopy");
   hEmbDijetMassCopy->Reset();
   hEmbDijetMassCopy->SetLineColor(kBlack);
