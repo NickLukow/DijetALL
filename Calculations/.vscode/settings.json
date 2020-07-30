@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "PlotTune.C": "cpp",
+        "PlotsPartonAsymmNNPDF.C": "cpp",
+        "Plot_UE.C": "cpp",
+        "Plot_DiJetsEmb.C": "cpp",
+        "Plot_DiJets.C": "cpp",
+        "FilterBinAvg.C": "cpp",
+        "CompTwoPanelPlot.C": "cpp",
+        "CompTwoPanelPlot_BackupJuly27.C": "cpp",
+        "CompTwoPanelPlot_Bands.C": "cpp",
+        "MassDataEmbPaper_OneRatio.C": "cpp",
+        "MakeHistoUEEmb_dijet.C": "cpp"
+    }
+}
