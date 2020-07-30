@@ -187,7 +187,7 @@ gStyle->SetOptStat(0);
   hR13JetIdx[trig][ijet]->SetMinimum(0.1);
   hR13JetIdx[trig][ijet]->Scale(1/hR13JetIdx[trig][ijet]->Integral());
   hR13JetIdx[trig][ijet]->GetXaxis()->SetRangeUser(0,120);
-  hR13JetIdx[trig][ijet]->Draw();
+  hR13JetIdx[trig][ijet]->Draw("H");
   
   hREmbJetIdx[trig][ijet]->SetLineColor(2);
   hREmbJetIdx[trig][ijet]->Scale(1/hREmbJetIdx[trig][ijet]->Integral());
