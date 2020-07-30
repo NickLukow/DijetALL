@@ -10,7 +10,7 @@
 #include "TStyle.h"
 #include "TF1.h"
 
-
+//Author Nick Lukow
 //--->START MAIN PROGRAM
 void PlotTune(){
   
