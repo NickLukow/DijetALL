@@ -199,7 +199,7 @@ gStyle->SetOptStat(0);
   pad011->SetBottomMargin(0.2);
   pad011->Draw();
   pad011->cd();
-  hR13JetIdx[trig][ijet]->Sumw2(kFALSE);  hR13JetIdx[trig][ijet]->Sumw2(kFALSE);
+  //hR13JetIdx[trig][ijet]->Sumw2(kFALSE);  hR13JetIdx[trig][ijet]->Sumw2(kFALSE);
   TH1D *hR13JetIdx_R= (TH1D*) hR13JetIdx[trig][ijet]->Clone();
   //hR13JetIdx_R->Sumw2();
   hR13JetIdx_R->Add(hREmbJetIdx[trig][ijet],-1);
