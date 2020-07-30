@@ -188,16 +188,7 @@ gStyle->SetOptStat(0);
   hR13JetIdx[trig][ijet]->Scale(1/hR13JetIdx[trig][ijet]->Integral());
   hR13JetIdx[trig][ijet]->GetXaxis()->SetRangeUser(0,120);
   hR13JetIdx[trig][ijet]->Draw();
-  TLatex* latex1 = new TLatex();
-  latex1->SetTextFont(22);
-  latex1->SetTextSize(0.1);
-  latex1->DrawLatexNDC(0.6,0.6,trigger[trig]);
-  latex1->DrawLatexNDC(0.6,0.7,topology[topol]);
-
-  //Uncommnet this for the jet label on Jets plot
-  if(ijet==0)  latex1->DrawLatexNDC(0.6,0.50,"High jet");
-  else  latex1->DrawLatexNDC(0.6,0.50,"Low jet");
-  //
+  
   hREmbJetIdx[trig][ijet]->SetLineColor(2);
   hREmbJetIdx[trig][ijet]->Scale(1/hREmbJetIdx[trig][ijet]->Integral());
   hREmbJetIdx[trig][ijet]->Draw("same");
@@ -225,8 +216,8 @@ gStyle->SetOptStat(0);
   hR13JetIdx_R->GetYaxis()->SetLabelSize(0.09);
   hR13JetIdx_R->GetXaxis()->SetLabelSize(0.09);
   hR13JetIdx_R->GetYaxis()->SetNdivisions(5); 
-  hR13JetIdx_R->SetMarkerStyle(2); 
-  hR13JetIdx_R->Draw("hist p");
+  //hR13JetIdx_R->SetMarkerStyle(2); 
+  hR13JetIdx_R->Draw(" ");
   /*
   double Highmass;
   if (trig == 2 || trig == 1) Highmass = 90;
@@ -254,6 +245,10 @@ gStyle->SetOptStat(0);
 
   //cout << "Data Integral: " << hR13JetPt[trig][ijet]->Integral() << endl;
 
+  
+
+
+
   hR13JetPt[trig][ijet]->Draw("H");
   TLegend *legend0 = new TLegend(0.6,0.70,0.85,0.85);
   legend0->AddEntry(hR13JetPt[trig][ijet], "Run 15", "l");
@@ -272,6 +267,17 @@ gStyle->SetOptStat(0);
   legend0->SetBorderSize(0);
   legend0->SetFillStyle(0);
   legend0->Draw("hist p");
+
+  TLatex* latex1 = new TLatex();
+  latex1->SetTextFont(22);
+  latex1->SetTextSize(0.1);
+  latex1->DrawLatexNDC(0.6,0.5,trigger[trig]);
+  latex1->DrawLatexNDC(0.6,0.6,topology[topol]);
+
+  //Uncommnet this for the jet label on Jets plot
+  if(ijet==0)  latex1->DrawLatexNDC(0.6,0.40,"High jet");
+  else  latex1->DrawLatexNDC(0.6,0.40,"Low jet");
+  //
   //////////
   c0->cd(2);
   TPad *pad021 = new TPad("pad021","pad021", 0,0.05,1.0,0.3);
@@ -296,8 +302,8 @@ gStyle->SetOptStat(0);
   hR13JetPt_R->GetXaxis()->SetLabelSize(0.09);
   hR13JetPt_R->GetXaxis()->SetTitleSize(0.07);
   hR13JetPt_R->GetYaxis()->SetNdivisions(5); 
-  hR13JetPt_R->SetMarkerStyle(2);
-  hR13JetPt_R->Draw("hist p");
+  //hR13JetPt_R->SetMarkerStyle(2);
+  hR13JetPt_R->Draw(" ");
   
 
   c0->cd(3);
@@ -337,8 +343,8 @@ gStyle->SetOptStat(0);
   hR13JetRt_R->GetYaxis()->SetLabelSize(0.09);
   hR13JetRt_R->GetXaxis()->SetLabelSize(0.09);
   hR13JetRt_R->GetYaxis()->SetNdivisions(5); 
-  hR13JetRt_R->SetMarkerStyle(2);
-  hR13JetRt_R->Draw("hist p");
+  //hR13JetRt_R->SetMarkerStyle(2);
+  hR13JetRt_R->Draw(" ");
   
   c0->cd(4);
   //c0->SetLogy();
@@ -379,8 +385,8 @@ gStyle->SetOptStat(0);
   hR13JetEta_R->GetYaxis()->SetLabelSize(0.09);
   hR13JetEta_R->GetXaxis()->SetLabelSize(0.09);
   hR13JetEta_R->GetYaxis()->SetNdivisions(5); 
-  hR13JetEta_R->SetMarkerStyle(2);
-  hR13JetEta_R->Draw("hist p");
+  //hR13JetEta_R->SetMarkerStyle(2);
+  hR13JetEta_R->Draw(" ");
 
   c0->cd(5);
   //c0->SetLogy();
@@ -422,8 +428,8 @@ gStyle->SetOptStat(0);
   hR13JetPhi_R->GetYaxis()->SetLabelSize(0.09);
   hR13JetPhi_R->GetXaxis()->SetLabelSize(0.09);
   hR13JetPhi_R->GetYaxis()->SetNdivisions(5); 
-  hR13JetPhi_R->SetMarkerStyle(2);
-  hR13JetPhi_R->Draw("hist p");
+  //hR13JetPhi_R->SetMarkerStyle(2);
+  hR13JetPhi_R->Draw(" ");
 
   c0->cd(6);
   //c0->SetLogy();
@@ -464,8 +470,8 @@ gStyle->SetOptStat(0);
   hR13JetDet_R->GetYaxis()->SetLabelSize(0.09);
   hR13JetDet_R->GetXaxis()->SetLabelSize(0.09);
   hR13JetDet_R->GetYaxis()->SetNdivisions(5); 
-  hR13JetDet_R->SetMarkerStyle(2);
-  hR13JetDet_R->Draw("hist p");
+  //hR13JetDet_R->SetMarkerStyle(2);
+  hR13JetDet_R->Draw(" ");
 
   //c0->SaveAs("/star/u/aquinter/Run15/InclusiveJets/Compare/JetPt_compare.png");
 
@@ -524,8 +530,8 @@ gStyle->SetOptStat(0);
   hR13TrackIdx_R->GetYaxis()->SetLabelSize(0.09);
   hR13TrackIdx_R->GetXaxis()->SetLabelSize(0.09);
   hR13TrackIdx_R->GetYaxis()->SetNdivisions(5); 
-  hR13TrackIdx_R->SetMarkerStyle(2);
-  hR13TrackIdx_R->Draw("hist p");
+  //hR13TrackIdx_R->SetMarkerStyle(2);
+  hR13TrackIdx_R->Draw(" ");
 
   c1->cd(2);
   //c1->cd(2)->SetLogy();
@@ -571,8 +577,8 @@ gStyle->SetOptStat(0);
   hR13TrackPt_R->GetXaxis()->SetLabelSize(0.09);
   hR13TrackPt_R->GetYaxis()->SetNdivisions(5);
   hR13TrackPt_R->GetXaxis()->SetTitleSize(0.07); 
-  hR13TrackPt_R->SetMarkerStyle(2);
-  hR13TrackPt_R->Draw("hist p");
+  //hR13TrackPt_R->SetMarkerStyle(2);
+  hR13TrackPt_R->Draw(" ");
 
   c1->cd(3);
   //c1->cd(3)->SetLogy();
@@ -616,8 +622,8 @@ gStyle->SetOptStat(0);
   hR13TrackDcaXY_R->GetXaxis()->SetLabelSize(0.09);
   hR13TrackDcaXY_R->GetYaxis()->SetNdivisions(5); 
   hR13TrackDcaXY_R->GetXaxis()->SetTitleSize(0.07); 
-  hR13TrackDcaXY_R->SetMarkerStyle(2);
-  hR13TrackDcaXY_R->Draw("hist p");
+  //hR13TrackDcaXY_R->SetMarkerStyle(2);
+  hR13TrackDcaXY_R->Draw(" ");
 
   c1->cd(4);
   //c1->SetLogy();
@@ -658,8 +664,8 @@ gStyle->SetOptStat(0);
   hR13TrackEta_R->GetYaxis()->SetLabelSize(0.09);
   hR13TrackEta_R->GetXaxis()->SetLabelSize(0.09);
   hR13TrackEta_R->GetYaxis()->SetNdivisions(5); 
-  hR13TrackEta_R->SetMarkerStyle(2);
-  hR13TrackEta_R->Draw("hist p");
+  //hR13TrackEta_R->SetMarkerStyle(2);
+  hR13TrackEta_R->Draw(" ");
 
   c1->cd(5);
   //c1->SetLogy();
@@ -702,8 +708,8 @@ gStyle->SetOptStat(0);
   hR13TrackPhi_R->GetYaxis()->SetLabelSize(0.09);
   hR13TrackPhi_R->GetXaxis()->SetLabelSize(0.09);
   hR13TrackPhi_R->GetYaxis()->SetNdivisions(5); 
-  hR13TrackPhi_R->SetMarkerStyle(2);
-  hR13TrackPhi_R->Draw("hist p");
+  //hR13TrackPhi_R->SetMarkerStyle(2);
+  hR13TrackPhi_R->Draw(" ");
 
   c1->cd(6);
   //c1->SetLogy();
@@ -745,8 +751,8 @@ gStyle->SetOptStat(0);
   hR13TrackDcaZ_R->GetXaxis()->SetLabelSize(0.09);
   hR13TrackDcaZ_R->GetYaxis()->SetNdivisions(5);
   hR13TrackDcaZ_R->GetXaxis()->SetTitleSize(0.07);  
-  hR13TrackDcaZ_R->SetMarkerStyle(2);
-  hR13TrackDcaZ_R->Draw("hist p");
+  //hR13TrackDcaZ_R->SetMarkerStyle(2);
+  hR13TrackDcaZ_R->Draw(" ");
 
   //c1->SaveAs("/star/u/aquinter/Run15/InclusiveJets/Compare/TrackPt_compare.png");
 
@@ -801,8 +807,8 @@ gStyle->SetOptStat(0);
   hR13TowerIdx_R->GetYaxis()->SetLabelSize(0.09);
   hR13TowerIdx_R->GetXaxis()->SetLabelSize(0.09);
   hR13TowerIdx_R->GetYaxis()->SetNdivisions(5); 
-  hR13TowerIdx_R->SetMarkerStyle(2);
-  hR13TowerIdx_R->Draw("hist p");
+  //hR13TowerIdx_R->SetMarkerStyle(2);
+  hR13TowerIdx_R->Draw(" ");
 
 
   c2->cd(2);
@@ -847,8 +853,8 @@ gStyle->SetOptStat(0);
   hR13TowerPt_R->GetXaxis()->SetLabelSize(0.09);
   hR13TowerPt_R->GetXaxis()->SetTitleSize(0.07);
   hR13TowerPt_R->GetYaxis()->SetNdivisions(5); 
-  hR13TowerPt_R->SetMarkerStyle(2);
-  hR13TowerPt_R->Draw("hist p");
+  //hR13TowerPt_R->SetMarkerStyle(2);
+  hR13TowerPt_R->Draw(" ");
  
   c2->cd(3);
   //c2->cd(3)->SetLogy();
@@ -889,8 +895,8 @@ gStyle->SetOptStat(0);
   hR13TowerE_R->GetXaxis()->SetLabelSize(0.09);
   hR13TowerE_R->GetXaxis()->SetTitleSize(0.07);
   hR13TowerE_R->GetYaxis()->SetNdivisions(5); 
-  hR13TowerE_R->SetMarkerStyle(2);
-  hR13TowerE_R->Draw("hist p");
+  //hR13TowerE_R->SetMarkerStyle(2);
+  hR13TowerE_R->Draw(" ");
 
   c2->cd(4);
   //c1->SetLogy();
@@ -931,8 +937,8 @@ gStyle->SetOptStat(0);
   hR13TowerEta_R->GetYaxis()->SetLabelSize(0.09);
   hR13TowerEta_R->GetXaxis()->SetLabelSize(0.09);
   hR13TowerEta_R->GetYaxis()->SetNdivisions(5); 
-  hR13TowerEta_R->SetMarkerStyle(2);
-  hR13TowerEta_R->Draw("hist p");
+  //hR13TowerEta_R->SetMarkerStyle(2);
+  hR13TowerEta_R->Draw(" ");
 
   c2->cd(5);
   //c1->SetLogy();
@@ -974,8 +980,8 @@ gStyle->SetOptStat(0);
   hR13TowerPhi_R->GetYaxis()->SetLabelSize(0.09);
   hR13TowerPhi_R->GetXaxis()->SetLabelSize(0.09);
   hR13TowerPhi_R->GetYaxis()->SetNdivisions(5); 
-  hR13TowerPhi_R->SetMarkerStyle(2);
-  hR13TowerPhi_R->Draw("hist p");
+  //hR13TowerPhi_R->SetMarkerStyle(2);
+  hR13TowerPhi_R->Draw(" ");
   
   c2->cd(6);
   //c1->SetLogy();
@@ -1014,8 +1020,8 @@ gStyle->SetOptStat(0);
   hR13TowerAdc_R->GetYaxis()->SetLabelSize(0.09);
   hR13TowerAdc_R->GetXaxis()->SetLabelSize(0.09);
   hR13TowerAdc_R->GetYaxis()->SetNdivisions(5); 
-  hR13TowerAdc_R->SetMarkerStyle(2);
-  hR13TowerAdc_R->Draw("hist p");
+  //hR13TowerAdc_R->SetMarkerStyle(2);
+  hR13TowerAdc_R->Draw(" ");
 
   c2->Draw();
   //END Plot Towers<--6--
