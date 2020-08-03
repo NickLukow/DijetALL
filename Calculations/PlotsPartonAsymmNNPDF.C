@@ -31,10 +31,13 @@ void PlotsPartonAsymmNNPDF()
 	
 	//TEST
 	TGraph *DiffPlot[Nsides];
+	TGraph *DiffPlot_4pct[Nsides];
         for (int iTop = 0 ; iTop < Nsides; iTop++)
         {
                 DiffPlot[iTop] = new TGraph();
                 DiffPlot[iTop]->SetName(Form("DiffPlot_%s", side[iTop]));
+				DiffPlot_4pct[iTop] = new TGraph();
+                DiffPlot_4pct[iTop]->SetName(Form("DiffPlot_%s_4pct", side[iTop]));
         }
         int counter[Nsides] = {0,0,0};
 	//TEST
@@ -60,6 +63,7 @@ void PlotsPartonAsymmNNPDF()
 	TProfile *hasymm_Filter_4pct[Nsides];
 	TProfile *hasymm_NoFilter[Nsides];
 	TProfile *hasymm_diff[Nsides];
+	TProfile *hasymm_diff_4pct[Nsides];
 
 	for(int i = 0; i < Nsides; i++)
 	{
@@ -67,6 +71,7 @@ void PlotsPartonAsymmNNPDF()
 		hasymm_Filter_4pct[i] = new TProfile(Form("hasymm_Filter_4pct_%s",side[i]), Form("hasymm_Filter_4pct_%s",side[i]), nbins,0,nbins);
 		hasymm_NoFilter[i] = new TProfile(Form("hasymm_NoFilter_%s",side[i]), Form("hasymm_NoFilter_%s",side[i]), nbins,0,nbins);
 		hasymm_diff[i] = new TProfile(Form("hasymm_diff_%s",side[i]), Form("hasymm_diff_%s",side[i]), nbins,0,nbins);
+		hasymm_diff_4pct[i] = new TProfile(Form("hasymm_diff_%s_4pct",side[i]), Form("hasymm_diff_%s_4pct",side[i]), nbins,0,nbins);
 	}
 
 
@@ -96,6 +101,7 @@ void PlotsPartonAsymmNNPDF()
 
 	double asymm_NoFilter[numNNPDF][Nsides][nbins];
 	double asymm_Filter[numNNPDF][Nsides][nbins];
+	double asymm_Filter_4pct[numNNPDF][Nsides][nbins];
 	double asymm_diff[numNNPDF][Nsides][nbins];
 
 	for(int i = 1; i < numNNPDF; i++)
@@ -117,9 +123,11 @@ void PlotsPartonAsymmNNPDF()
 				if(j == 2) asymm_NoFilter[i][j][k] = CalcAsymm(Mass_EW[k]   ,a3[i][j],a2[i][j],a1[i][j],a0[i][j]);
 				hasymm_NoFilter[j]->Fill(k,CalcAsymm(Mass[k],a3[i][j],a2[i][j],a1[i][j],a0[i][j]));
 				asymm_Filter[i][j][k] = CorrMassAsymmDetBin_Filter[i][j]->GetBinContent(k+1);
+				asymm_Filter_4pct[i][j][k] = CorrMassAsymmDetBin_Filter_4pct[i][j]->GetBinContent(k+1);
 				hasymm_Filter[j]->Fill(k,CorrMassAsymmDetBin_Filter[i][j]->GetBinContent(k+1));
 				hasymm_Filter_4pct[j]->Fill(k,CorrMassAsymmDetBin_Filter_4pct[i][j]->GetBinContent(k+1));
 				hasymm_diff[j]->Fill(k,asymm_Filter[i][j][k]-asymm_NoFilter[i][j][k]);
+				hasymm_diff_4pct[j]->Fill(k,asymm_Filter_4pct[i][j][k]-asymm_NoFilter[i][j][k]);
 				
 				//TEST
 				double binwidth = binEdges[k+1] - binEdges[k];
@@ -127,6 +135,7 @@ void PlotsPartonAsymmNNPDF()
                                 frac = frac/100;
                                 double xplot = binEdges[k] + binwidth*frac;
                                 DiffPlot[j]->SetPoint(counter[j], xplot, asymm_Filter[i][j][k]-asymm_NoFilter[i][j][k]);
+                                DiffPlot_4pct[j]->SetPoint(counter[j], xplot, asymm_Filter_4pct[i][j][k]-asymm_NoFilter[i][j][k]);
                                 counter[j]++;
 				//TEST			
 
@@ -137,13 +146,18 @@ void PlotsPartonAsymmNNPDF()
 
 //Getting Corection Values
 TH1D *CorrectionPlot[Nsides];
+TH1D *CorrectionPlot_4pct[Nsides];
 for(int i = 0; i < Nsides; i++)
 {
         CorrectionPlot[i] = new TH1D(Form("hCorr_%s",side[i]), Form("Correction - %s", side[i]), nbins, binEdges);
+        CorrectionPlot_4pct[i] = new TH1D(Form("hCorr_%s_4pct",side[i]), Form("Correction - %s - 4pct Track Loss", side[i]), nbins, binEdges);
         for(int j = 1; j < nbins-1; j++)
         {
                 CorrectionPlot[i]->SetBinContent(j+1,hasymm_diff[i]->GetBinContent(j+1));
                 CorrectionPlot[i]->SetBinError(j+1,hasymm_diff[i]->GetBinError(j+1));
+
+				CorrectionPlot_4pct[i]->SetBinContent(j+1,hasymm_diff_4pct[i]->GetBinContent(j+1));
+                CorrectionPlot_4pct[i]->SetBinError(j+1,hasymm_diff_4pct[i]->GetBinError(j+1));
         }
 }
 
@@ -271,6 +285,7 @@ for(int i = 0; i < Nsides; i++)
 	CorrMassAsymmDetBin_Filter[0][2]->Draw("e");
 	canvas6->SaveAs("/home/nick/Documents/AnalysisFolder/Figures/DiJetTriggerBias/NNPDF_BestFit_EW.png");
 */
+/*
 	TCanvas *canvasDiff1 = new TCanvas();
         canvasDiff1->cd();
         DiffPlot[0]->SetTitle("Detector - Parton Full Sample - 100 Replicates per bin");
@@ -315,22 +330,22 @@ for(int i = 0; i < Nsides; i++)
         CorrectionPlot[2]->SetLineWidth(2);
         CorrectionPlot[2]->Draw("same");
 	//canvasDiff3->SaveAs("/home/nick/Documents/AnalysisFolder/Figures/DiJetTriggerBias/NEWCorrection_EW.pdf");
-
+*/
 	//New Plots
 	TCanvas *cBiased_EW = new TCanvas("cBiased_EW", "Biased EW", 1200, 800);
-	CorrMassAsymmDetBin_Filter[0][0]->SetLineColor(kRed);
-	CorrMassAsymmDetBin_Filter[0][0]->SetLineWidth(2);
-	CorrMassAsymmDetBin_Filter[0][0]->Draw("Hist");
-	CorrMassAsymmDetBin_Filter[0][0]->SetTitle("Biased Asymmetries - EW");
-	CorrMassAsymmDetBin_Filter[0][0]->GetXaxis()->SetRangeUser(17,82);
-	CorrMassAsymmDetBin_Filter[0][0]->GetXaxis()->SetTitle("Detector M_{inv}");
-	CorrMassAsymmDetBin_Filter[0][0]->GetYaxis()->SetRangeUser(-0.01,0.11);
-	CorrMassAsymmDetBin_Filter[0][0]->GetYaxis()->SetTitle("A_{LL}");
+	CorrMassAsymmDetBin_Filter[0][2]->SetLineColor(kRed);
+	CorrMassAsymmDetBin_Filter[0][2]->SetLineWidth(2);
+	CorrMassAsymmDetBin_Filter[0][2]->Draw("Hist");
+	CorrMassAsymmDetBin_Filter[0][2]->SetTitle("Biased Asymmetries - EW");
+	CorrMassAsymmDetBin_Filter[0][2]->GetXaxis()->SetRangeUser(17,82);
+	CorrMassAsymmDetBin_Filter[0][2]->GetXaxis()->SetTitle("Detector M_{inv}");
+	CorrMassAsymmDetBin_Filter[0][2]->GetYaxis()->SetRangeUser(-0.01,0.11);
+	CorrMassAsymmDetBin_Filter[0][2]->GetYaxis()->SetTitle("A_{LL}");
 	for(int j= 1; j<100; j++)
 	{
-		CorrMassAsymmDetBin_Filter[j][0]->Draw("Hist same");
+		CorrMassAsymmDetBin_Filter[j][2]->Draw("Hist same");
 	}
-	CorrMassAsymmDetBin_Filter[0][0]->Draw("L same");
+	CorrMassAsymmDetBin_Filter[0][2]->Draw("L same");
 	cBiased_EW->SaveAs("./PrelimFigures/Biased_EW.pdf");
 
 
@@ -353,19 +368,19 @@ for(int i = 0; i < Nsides; i++)
 
 
 	TCanvas *cBiased_EW_4pct = new TCanvas("cBiased_EW_4pct", "Biased EW", 1200, 800);
-	CorrMassAsymmDetBin_Filter_4pct[0][0]->SetLineColor(kRed);
-	CorrMassAsymmDetBin_Filter_4pct[0][0]->SetLineWidth(2);
-	CorrMassAsymmDetBin_Filter_4pct[0][0]->Draw("Hist");
-	CorrMassAsymmDetBin_Filter_4pct[0][0]->SetTitle("Biased Asymmetries - EW");
-	CorrMassAsymmDetBin_Filter_4pct[0][0]->GetXaxis()->SetRangeUser(17,82);
-	CorrMassAsymmDetBin_Filter_4pct[0][0]->GetXaxis()->SetTitle("Detector M_{inv}");
-	CorrMassAsymmDetBin_Filter_4pct[0][0]->GetYaxis()->SetRangeUser(-0.01,0.11);
-	CorrMassAsymmDetBin_Filter_4pct[0][0]->GetYaxis()->SetTitle("A_{LL}");
+	CorrMassAsymmDetBin_Filter_4pct[0][2]->SetLineColor(kRed);
+	CorrMassAsymmDetBin_Filter_4pct[0][2]->SetLineWidth(2);
+	CorrMassAsymmDetBin_Filter_4pct[0][2]->Draw("Hist");
+	CorrMassAsymmDetBin_Filter_4pct[0][2]->SetTitle("Biased Asymmetries - EW");
+	CorrMassAsymmDetBin_Filter_4pct[0][2]->GetXaxis()->SetRangeUser(17,82);
+	CorrMassAsymmDetBin_Filter_4pct[0][2]->GetXaxis()->SetTitle("Detector M_{inv}");
+	CorrMassAsymmDetBin_Filter_4pct[0][2]->GetYaxis()->SetRangeUser(-0.01,0.11);
+	CorrMassAsymmDetBin_Filter_4pct[0][2]->GetYaxis()->SetTitle("A_{LL}");
 	for(int j= 1; j<100; j++)
 	{
-		CorrMassAsymmDetBin_Filter_4pct[j][0]->Draw("Hist same");
+		CorrMassAsymmDetBin_Filter_4pct[j][2]->Draw("Hist same");
 	}
-	CorrMassAsymmDetBin_Filter_4pct[0][0]->Draw("L same");
+	CorrMassAsymmDetBin_Filter_4pct[0][2]->Draw("L same");
 	cBiased_EW_4pct->SaveAs("./PrelimFigures/Biased_EW_4pct.pdf");
 
 
@@ -388,19 +403,19 @@ for(int i = 0; i < Nsides; i++)
 
 
 	TCanvas *cUnbiased_EW = new TCanvas("cUnbiased_EW", "Unbiased EW", 1200, 800);
-	hAsymm2GeVBin_NoFilter[0][0]->SetLineColor(kRed);
-	hAsymm2GeVBin_NoFilter[0][0]->SetLineWidth(2);
-	hAsymm2GeVBin_NoFilter[0][0]->Draw("Hist");
-	hAsymm2GeVBin_NoFilter[0][0]->SetTitle("Unbiased Asymmetries - EW");
-	hAsymm2GeVBin_NoFilter[0][0]->GetXaxis()->SetRangeUser(17,82);
-	hAsymm2GeVBin_NoFilter[0][0]->GetXaxis()->SetTitle("Parton M_{inv}");
-	hAsymm2GeVBin_NoFilter[0][0]->GetYaxis()->SetRangeUser(-0.01,0.11);
-	hAsymm2GeVBin_NoFilter[0][0]->GetYaxis()->SetTitle("A_{LL}");
+	hAsymm2GeVBin_NoFilter[0][2]->SetLineColor(kRed);
+	hAsymm2GeVBin_NoFilter[0][2]->SetLineWidth(2);
+	hAsymm2GeVBin_NoFilter[0][2]->Draw("Hist");
+	hAsymm2GeVBin_NoFilter[0][2]->SetTitle("Unbiased Asymmetries - EW");
+	hAsymm2GeVBin_NoFilter[0][2]->GetXaxis()->SetRangeUser(17,82);
+	hAsymm2GeVBin_NoFilter[0][2]->GetXaxis()->SetTitle("Parton M_{inv}");
+	hAsymm2GeVBin_NoFilter[0][2]->GetYaxis()->SetRangeUser(-0.01,0.11);
+	hAsymm2GeVBin_NoFilter[0][2]->GetYaxis()->SetTitle("A_{LL}");
 	for(int j= 1; j<100; j++)
 	{
-		hAsymm2GeVBin_NoFilter[j][0]->Draw("Hist same");
+		hAsymm2GeVBin_NoFilter[j][2]->Draw("Hist same");
 	}
-	hAsymm2GeVBin_NoFilter[0][0]->Draw("L same");
+	hAsymm2GeVBin_NoFilter[0][2]->Draw("L same");
 	cUnbiased_EW->SaveAs("./PrelimFigures/Unbiased_EW.pdf");
 
 
@@ -420,6 +435,67 @@ for(int i = 0; i < Nsides; i++)
 	hAsymm2GeVBin_NoFilter[0][1]->Draw("L same");
 	cUnbiased_EEWW->SaveAs("./PrelimFigures/Unbiased_EEWW.pdf");
 
+
+
+	TCanvas *cTriggerBias_EW = new TCanvas("cTriggerBias_EW", "TriggerBias EW", 1200, 800);
+    cTriggerBias_EW->cd();
+    DiffPlot[2]->SetTitle("Detector - Parton EW Sample - 100 Replicates per bin");
+    DiffPlot[2]->GetXaxis()->SetTitle("Invariant Mass");
+    DiffPlot[2]->GetYaxis()->SetTitle("Detector-Parton EW A_{LL} Average");
+	DiffPlot[2]->GetYaxis()->SetRangeUser(-0.05, 0.05);
+	DiffPlot[2]->SetMarkerSize(0.2);
+	DiffPlot[2]->SetMarkerStyle(3);
+	DiffPlot[2]->Draw("AP");
+	CorrectionPlot[2]->SetMarkerColor(2);
+    CorrectionPlot[2]->SetLineColor(2);
+    CorrectionPlot[2]->SetLineWidth(2);
+    CorrectionPlot[2]->Draw("same");
+	cTriggerBias_EW->SaveAs("./PrelimFigures/TriggerBiasCorrection_EW.pdf");
+
+	TCanvas *cTriggerBias_EEWW = new TCanvas("cTriggerBias_EEWW", "TriggerBias EEWW", 1200, 800);
+    cTriggerBias_EEWW->cd();
+    DiffPlot[1]->SetTitle("Detector - Parton EEWW Sample - 100 Replicates per bin");
+    DiffPlot[1]->GetXaxis()->SetTitle("Invariant Mass");
+    DiffPlot[1]->GetYaxis()->SetTitle("Detector-Parton EW A_{LL} Average");
+	DiffPlot[1]->GetYaxis()->SetRangeUser(-0.05, 0.05);
+	DiffPlot[1]->SetMarkerSize(0.2);
+	DiffPlot[1]->SetMarkerStyle(3);
+	DiffPlot[1]->Draw("AP");
+	CorrectionPlot[1]->SetMarkerColor(2);
+    CorrectionPlot[1]->SetLineColor(2);
+    CorrectionPlot[1]->SetLineWidth(2);
+    CorrectionPlot[1]->Draw("same");
+	cTriggerBias_EEWW->SaveAs("./PrelimFigures/TriggerBiasCorrection_EEWW.pdf");
+
+	TCanvas *cTriggerBias_EW_4pct = new TCanvas("cTriggerBias_EW_4pct", "TriggerBias EW", 1200, 800);
+    cTriggerBias_EW_4pct->cd();
+    DiffPlot_4pct[2]->SetTitle("Detector - Parton EW Sample - 100 Replicates per bin");
+    DiffPlot_4pct[2]->GetXaxis()->SetTitle("Invariant Mass");
+    DiffPlot_4pct[2]->GetYaxis()->SetTitle("Detector-Parton EW A_{LL} Average");
+	DiffPlot_4pct[2]->GetYaxis()->SetRangeUser(-0.05, 0.05);
+	DiffPlot_4pct[2]->SetMarkerSize(0.2);
+	DiffPlot_4pct[2]->SetMarkerStyle(3);
+	DiffPlot_4pct[2]->Draw("AP");
+	CorrectionPlot_4pct[2]->SetMarkerColor(2);
+    CorrectionPlot_4pct[2]->SetLineColor(2);
+    CorrectionPlot_4pct[2]->SetLineWidth(2);
+    CorrectionPlot_4pct[2]->Draw("same");
+	cTriggerBias_EW_4pct->SaveAs("./PrelimFigures/TriggerBiasCorrection_EW_4pct.pdf");
+
+	TCanvas *cTriggerBias_EEWW_4pct = new TCanvas("cTriggerBias_EEWW_4pct", "TriggerBias EEWW", 1200, 800);
+    cTriggerBias_EEWW_4pct->cd();
+    DiffPlot_4pct[1]->SetTitle("Detector - Parton EEWW Sample - 100 Replicates per bin");
+    DiffPlot_4pct[1]->GetXaxis()->SetTitle("Invariant Mass");
+    DiffPlot_4pct[1]->GetYaxis()->SetTitle("Detector-Parton EW A_{LL} Average");
+	DiffPlot_4pct[1]->GetYaxis()->SetRangeUser(-0.05, 0.05);
+	DiffPlot_4pct[1]->SetMarkerSize(0.2);
+	DiffPlot_4pct[1]->SetMarkerStyle(3);
+	DiffPlot_4pct[1]->Draw("AP");
+	CorrectionPlot_4pct[1]->SetMarkerColor(2);
+    CorrectionPlot_4pct[1]->SetLineColor(2);
+    CorrectionPlot_4pct[1]->SetLineWidth(2);
+    CorrectionPlot_4pct[1]->Draw("same");
+	cTriggerBias_EEWW_4pct->SaveAs("./PrelimFigures/TriggerBiasCorrection_EEWW_4pct.pdf");
 
 
 
