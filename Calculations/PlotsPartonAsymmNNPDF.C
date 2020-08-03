@@ -316,4 +316,111 @@ for(int i = 0; i < Nsides; i++)
         CorrectionPlot[2]->Draw("same");
 	//canvasDiff3->SaveAs("/home/nick/Documents/AnalysisFolder/Figures/DiJetTriggerBias/NEWCorrection_EW.pdf");
 
+	//New Plots
+	TCanvas *cBiased_EW = new TCanvas("cBiased_EW", "Biased EW", 1200, 800);
+	CorrMassAsymmDetBin_Filter[0][0]->SetLineColor(kRed);
+	CorrMassAsymmDetBin_Filter[0][0]->SetLineWidth(2);
+	CorrMassAsymmDetBin_Filter[0][0]->Draw("Hist");
+	CorrMassAsymmDetBin_Filter[0][0]->SetTitle("Biased Asymmetries - EW");
+	CorrMassAsymmDetBin_Filter[0][0]->GetXaxis()->SetRangeUser(17,82);
+	CorrMassAsymmDetBin_Filter[0][0]->GetXaxis()->SetTitle("Detector M_{inv}");
+	CorrMassAsymmDetBin_Filter[0][0]->GetYaxis()->SetRangeUser(-0.01,0.11);
+	CorrMassAsymmDetBin_Filter[0][0]->GetYaxis()->SetTitle("A_{LL}");
+	for(int j= 1; j<100; j++)
+	{
+		CorrMassAsymmDetBin_Filter[j][0]->Draw("Hist same");
+	}
+	CorrMassAsymmDetBin_Filter[0][0]->Draw("L same");
+	cBiased_EW->SaveAs("./PrelimFigures/Biased_EW.pdf");
+
+
+	TCanvas *cBiased_EEWW = new TCanvas("cBiased_EEWW", "Biased EEWW", 1200, 800);
+	CorrMassAsymmDetBin_Filter[0][1]->SetLineColor(kRed);
+	CorrMassAsymmDetBin_Filter[0][1]->SetLineWidth(2);
+	CorrMassAsymmDetBin_Filter[0][1]->Draw("Hist");
+	CorrMassAsymmDetBin_Filter[0][1]->SetTitle("Biased Asymmetries - EEWW");
+	CorrMassAsymmDetBin_Filter[0][1]->GetXaxis()->SetRangeUser(17,82);
+	CorrMassAsymmDetBin_Filter[0][1]->GetXaxis()->SetTitle("Detector M_{inv}");
+	CorrMassAsymmDetBin_Filter[0][1]->GetYaxis()->SetRangeUser(-0.01,0.11);
+	CorrMassAsymmDetBin_Filter[0][1]->GetYaxis()->SetTitle("A_{LL}");
+	for(int j= 1; j<100; j++)
+	{
+		CorrMassAsymmDetBin_Filter[j][1]->Draw("Hist same");
+	}
+	CorrMassAsymmDetBin_Filter[0][1]->Draw("L same");
+	cBiased_EEWW->SaveAs("./PrelimFigures/Biased_EEWW.pdf");
+
+
+
+	TCanvas *cBiased_EW_4pct = new TCanvas("cBiased_EW_4pct", "Biased EW", 1200, 800);
+	CorrMassAsymmDetBin_Filter_4pct[0][0]->SetLineColor(kRed);
+	CorrMassAsymmDetBin_Filter_4pct[0][0]->SetLineWidth(2);
+	CorrMassAsymmDetBin_Filter_4pct[0][0]->Draw("Hist");
+	CorrMassAsymmDetBin_Filter_4pct[0][0]->SetTitle("Biased Asymmetries - EW");
+	CorrMassAsymmDetBin_Filter_4pct[0][0]->GetXaxis()->SetRangeUser(17,82);
+	CorrMassAsymmDetBin_Filter_4pct[0][0]->GetXaxis()->SetTitle("Detector M_{inv}");
+	CorrMassAsymmDetBin_Filter_4pct[0][0]->GetYaxis()->SetRangeUser(-0.01,0.11);
+	CorrMassAsymmDetBin_Filter_4pct[0][0]->GetYaxis()->SetTitle("A_{LL}");
+	for(int j= 1; j<100; j++)
+	{
+		CorrMassAsymmDetBin_Filter_4pct[j][0]->Draw("Hist same");
+	}
+	CorrMassAsymmDetBin_Filter_4pct[0][0]->Draw("L same");
+	cBiased_EW_4pct->SaveAs("./PrelimFigures/Biased_EW_4pct.pdf");
+
+
+	TCanvas *cBiased_EEWW_4pct = new TCanvas("cBiased_EEWW_4pct", "Biased EEWW", 1200, 800);
+	CorrMassAsymmDetBin_Filter_4pct[0][1]->SetLineColor(kRed);
+	CorrMassAsymmDetBin_Filter_4pct[0][1]->SetLineWidth(2);
+	CorrMassAsymmDetBin_Filter_4pct[0][1]->Draw("Hist");
+	CorrMassAsymmDetBin_Filter_4pct[0][1]->SetTitle("Biased Asymmetries - EEWW");
+	CorrMassAsymmDetBin_Filter_4pct[0][1]->GetXaxis()->SetRangeUser(17,82);
+	CorrMassAsymmDetBin_Filter_4pct[0][1]->GetXaxis()->SetTitle("Detector M_{inv}");
+	CorrMassAsymmDetBin_Filter_4pct[0][1]->GetYaxis()->SetRangeUser(-0.01,0.11);
+	CorrMassAsymmDetBin_Filter_4pct[0][1]->GetYaxis()->SetTitle("A_{LL}");
+	for(int j= 1; j<100; j++)
+	{
+		CorrMassAsymmDetBin_Filter_4pct[j][1]->Draw("Hist same");
+	}
+	CorrMassAsymmDetBin_Filter_4pct[0][1]->Draw("L same");
+	cBiased_EEWW_4pct->SaveAs("./PrelimFigures/Biased_EEWW_4pct.pdf");
+
+
+
+	TCanvas *cUnbiased_EW = new TCanvas("cUnbiased_EW", "Unbiased EW", 1200, 800);
+	hAsymm2GeVBin_NoFilter[0][0]->SetLineColor(kRed);
+	hAsymm2GeVBin_NoFilter[0][0]->SetLineWidth(2);
+	hAsymm2GeVBin_NoFilter[0][0]->Draw("Hist");
+	hAsymm2GeVBin_NoFilter[0][0]->SetTitle("Unbiased Asymmetries - EW");
+	hAsymm2GeVBin_NoFilter[0][0]->GetXaxis()->SetRangeUser(17,82);
+	hAsymm2GeVBin_NoFilter[0][0]->GetXaxis()->SetTitle("Parton M_{inv}");
+	hAsymm2GeVBin_NoFilter[0][0]->GetYaxis()->SetRangeUser(-0.01,0.11);
+	hAsymm2GeVBin_NoFilter[0][0]->GetYaxis()->SetTitle("A_{LL}");
+	for(int j= 1; j<100; j++)
+	{
+		hAsymm2GeVBin_NoFilter[j][0]->Draw("Hist same");
+	}
+	hAsymm2GeVBin_NoFilter[0][0]->Draw("L same");
+	cUnbiased_EW->SaveAs("./PrelimFigures/Unbiased_EW.pdf");
+
+
+	TCanvas *cUnbiased_EEWW = new TCanvas("cUnbiased_EEWW", "Unbiased EEWW", 1200, 800);
+	hAsymm2GeVBin_NoFilter[0][1]->SetLineColor(kRed);
+	hAsymm2GeVBin_NoFilter[0][1]->SetLineWidth(2);
+	hAsymm2GeVBin_NoFilter[0][1]->Draw("Hist");
+	hAsymm2GeVBin_NoFilter[0][1]->SetTitle("Unbiased Asymmetries - EEWW");
+	hAsymm2GeVBin_NoFilter[0][1]->GetXaxis()->SetRangeUser(17,82);
+	hAsymm2GeVBin_NoFilter[0][1]->GetXaxis()->SetTitle("Parton M_{inv}");
+	hAsymm2GeVBin_NoFilter[0][1]->GetYaxis()->SetRangeUser(-0.01,0.11);
+	hAsymm2GeVBin_NoFilter[0][1]->GetYaxis()->SetTitle("A_{LL}");
+	for(int j= 1; j<100; j++)
+	{
+		hAsymm2GeVBin_NoFilter[j][1]->Draw("Hist same");
+	}
+	hAsymm2GeVBin_NoFilter[0][1]->Draw("L same");
+	cUnbiased_EEWW->SaveAs("./PrelimFigures/Unbiased_EEWW.pdf");
+
+
+
+
 } // end void
