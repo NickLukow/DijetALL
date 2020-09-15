@@ -49,6 +49,8 @@ Int_t PLOTGLOBAL = 1;
 #include "TF1.h"
 #include "TBox.h"
 
+#include "./DijetData.h"
+
 TPad* upPad(string name, int isLog=0) {
 
   TPad *pad = new TPad(name.c_str(),name.c_str(), 0.0,0.53,1.0,1.0);
@@ -81,6 +83,7 @@ void CompTwoPanelPlot_Bands(){
 double LEGLOWY = 0.68 - 3*0.06*PLOT9 - 2*0.06*PLOTGLOBAL; //Using PLOT9 adds three entries to legend. Using PLOTGLOBAL adds 2
 if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
 
+/*
   double EEWWrun9x[7] = {17.70,21.34,26.02,31.66,38.25,48.28,66.65};
 	double EEWWrun9xerror[7] = {0,0,0,0,0,0,0};
 	double EEWWrun9y[7] = {0.0067,0.0088,0.0162,0.0024,0.0130,0.0336,0.0755};
@@ -109,7 +112,7 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
 	double EEWWrun15yerror[7] = {3.57E-03, 2.77E-03, 3.46E-03, 5.06E-03, 8.11E-03, 1.21E-02, 4.18E-02};
 	double EEWWrun15sysx[7] = {0.54, 0.61, 0.67, 0.78, 0.89, 1.02, 1.30};
 	double EEWWrun15sysy[7] = {8.41E-04, 6.85E-04, 7.25E-04, 7.83E-04, 9.92E-04, 1.10E-03, 2.17E-03};
-	
+	*/
   for (int i = 0; i < 7; i++)
   {
     EEWWrun15x[i] = EEWWrun15x[i]/200;
@@ -126,14 +129,14 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
 //---------------> Theory
 
 
-  TGraphAsymmErrors *ALLdssvEEWW = new TGraphAsymmErrors("./Theory/DSSV_Test/Coarse_Trunc/EEWW_Test.txt", "%lg %lg %lg %lg");
+  TGraphAsymmErrors *ALLdssvEEWW = new TGraphAsymmErrors("./Theory/DSSV_Extracted/EEWW_x.DSSV.txt", "%lg %lg %lg %lg");
   ALLdssvEEWW->SetLineColor(kRed);
   ALLdssvEEWW->SetLineStyle(7);
   ALLdssvEEWW->SetFillColor(kMagenta-4);
   ALLdssvEEWW->SetFillStyle(3354);
   ALLdssvEEWW->SetLineWidth(3);
 
-  TGraphAsymmErrors *ALLdssvEW = new TGraphAsymmErrors("./Theory/DSSV_Test/Coarse_Trunc/EW_Test.txt", "%lg %lg %lg %lg");
+  TGraphAsymmErrors *ALLdssvEW = new TGraphAsymmErrors("./Theory/DSSV_Extracted/EW_x.DSSV.txt", "%lg %lg %lg %lg");
   ALLdssvEW->SetLineColor(kRed);
   ALLdssvEW->SetLineStyle(7);
   ALLdssvEW->SetFillColor(kMagenta-4);
