@@ -34,6 +34,7 @@ double YPOS5 = YMAX - YFRAC5*(YMAX-YMIN);
 
 Int_t PLOT9 = 1;
 Int_t PLOTGLOBAL = 1;
+Int_t DSSVERR = 1;
 
 
 #include <string>
@@ -292,7 +293,7 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
 
   
   if(PLOTGLOBAL) ALLdssvEW->Draw("cXsame");
-  if(PLOTGLOBAL) ALLdssvEW->Draw("3same");
+  if(PLOTGLOBAL && DSSVERR) ALLdssvEW->Draw("3same");
   if(PLOTGLOBAL) ALLnnpdfEW->Draw("3same");
   if(PLOTGLOBAL) ALLnnpdfEW->Draw("cXsame");
   
@@ -312,7 +313,8 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
   leg2->AddEntry(gALL15_EW, "STAR 2015", "p");
   leg2->AddEntry(gSystALL15_EW, "2015 Syst.", "f");    
   //leg2->AddEntry(bxLumi15, "Lumi. Syst.", "f");    
-	if(PLOTGLOBAL) leg2->AddEntry(ALLdssvEW, "DSSV'14", "lf");
+	if(PLOTGLOBAL && DSSVERR) leg2->AddEntry(ALLdssvEW, "DSSV'14", "lf");
+  else leg2->AddEntry(ALLdssvEW, "DSSV'14", "l");
   if(PLOTGLOBAL) leg2->AddEntry(ALLnnpdfEW, "NNPDF1.1", "lf");
 
   text0.DrawLatex(XPOS,YPOS1,"#font[72]{#color[4]{STAR}} #font[62]{2015, #sqrt{s} = 200 GeV}");
@@ -355,7 +357,7 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
   gALL15_EEWW->Draw("AP"); 
 
   if(PLOTGLOBAL) ALLdssvEEWW->Draw("cXsame");
-  if(PLOTGLOBAL) ALLdssvEEWW->Draw("3same");
+  if(PLOTGLOBAL && DSSVERR) ALLdssvEEWW->Draw("3same");
   if(PLOTGLOBAL) ALLnnpdfEEWW->Draw("3same");
   if(PLOTGLOBAL) ALLnnpdfEEWW->Draw("cXsame");
   
