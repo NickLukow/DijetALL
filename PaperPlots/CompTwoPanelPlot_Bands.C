@@ -130,14 +130,14 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
 //---------------> Theory
 
 
-  TGraphAsymmErrors *ALLdssvEEWW = new TGraphAsymmErrors("./Theory/DSSV_Extracted/EEWW_x.DSSV.txt", "%lg %lg %lg %lg");
+  TGraphAsymmErrors *ALLdssvEEWW = new TGraphAsymmErrors("./Theory/DSSV_MC/EEWW_x.DSSV.txt", "%lg %lg %lg %lg");
   ALLdssvEEWW->SetLineColor(kRed);
   ALLdssvEEWW->SetLineStyle(7);
   ALLdssvEEWW->SetFillColor(kMagenta-4);
   ALLdssvEEWW->SetFillStyle(3354);
   ALLdssvEEWW->SetLineWidth(3);
 
-  TGraphAsymmErrors *ALLdssvEW = new TGraphAsymmErrors("./Theory/DSSV_Extracted/EW_x.DSSV.txt", "%lg %lg %lg %lg");
+  TGraphAsymmErrors *ALLdssvEW = new TGraphAsymmErrors("./Theory/DSSV_MC/EW_x.DSSV.txt", "%lg %lg %lg %lg");
   ALLdssvEW->SetLineColor(kRed);
   ALLdssvEW->SetLineStyle(7);
   ALLdssvEW->SetFillColor(kMagenta-4);
@@ -155,6 +155,39 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
   ALLnnpdfEW->SetFillColor(kCyan+1);
   ALLnnpdfEW->SetFillStyle(3345);
   ALLnnpdfEW->SetLineWidth(3);
+
+
+//Plus and Minus Lines
+TGraph *dssv_EEWW_p = new TGraph("./Theory/DSSV_MC/EEWW_x_P.DSSV.txt", "%lg %lg");
+dssv_EEWW_p->SetLineColor(kMagenta-4);
+dssv_EEWW_p->SetLineWidth(1);
+TGraph *dssv_EEWW_m = new TGraph("./Theory/DSSV_MC/EEWW_x_M.DSSV.txt", "%lg %lg");
+dssv_EEWW_m->SetLineColor(kMagenta-4);
+dssv_EEWW_m->SetLineWidth(1);
+
+TGraph *dssv_EW_p = new TGraph("./Theory/DSSV_MC/EW_x_P.DSSV.txt", "%lg %lg");
+dssv_EW_p->SetLineColor(kMagenta-4);
+dssv_EW_p->SetLineWidth(1);
+TGraph *dssv_EW_m = new TGraph("./Theory/DSSV_MC/EW_x_M.DSSV.txt", "%lg %lg");
+dssv_EW_m->SetLineColor(kMagenta-4);
+dssv_EW_m->SetLineWidth(1);
+
+TGraph *nnpdf_EEWW_p = new TGraph("./Theory/NNPDF/Coarse_Trunc/EEWW_x_P.NNPDF.txt", "%lg %lg");
+nnpdf_EEWW_p->SetLineColor(kCyan+1);
+nnpdf_EEWW_p->SetLineWidth(1);
+TGraph *nnpdf_EEWW_m = new TGraph("./Theory/NNPDF/Coarse_Trunc/EEWW_x_M.NNPDF.txt", "%lg %lg");
+nnpdf_EEWW_m->SetLineColor(kCyan+1);
+nnpdf_EEWW_m->SetLineWidth(1);
+
+TGraph *nnpdf_EW_p = new TGraph("./Theory/NNPDF/Coarse_Trunc/EW_x_P.NNPDF.txt", "%lg %lg");
+nnpdf_EW_p->SetLineColor(kCyan+1);
+nnpdf_EW_p->SetLineWidth(1);
+TGraph *nnpdf_EW_m = new TGraph("./Theory/NNPDF/Coarse_Trunc/EW_x_M.NNPDF.txt", "%lg %lg");
+nnpdf_EW_m->SetLineColor(kCyan+1);
+nnpdf_EW_m->SetLineWidth(1);
+
+
+
 
 
 //<--------------- Theory
@@ -201,7 +234,7 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
   TCanvas *cALL = new TCanvas("cALL"," ALL",800,800*1.26);  //800,800*1.26
 
   //TLegend *leglumi9 = new TLegend(0.632,0.268,0.833,0.349);
-  double lumiypos = 0.36;
+  double lumiypos = 0.39;
   TLegend *leglumi9 = new TLegend(0.67,lumiypos,0.871,lumiypos+0.081);
   leglumi9->SetTextSize(19);
   leglumi9->SetTextFont(43);
@@ -297,6 +330,12 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
   if(PLOTGLOBAL) ALLnnpdfEW->Draw("3same");
   if(PLOTGLOBAL) ALLnnpdfEW->Draw("cXsame");
   
+  dssv_EW_m->Draw("csame");
+  dssv_EW_p->Draw("csame");
+  nnpdf_EW_p->Draw("csame");
+  nnpdf_EW_m->Draw("csame");
+
+
   //bxLumi15->Draw();
   line->Draw();
 
@@ -315,7 +354,7 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
   //leg2->AddEntry(bxLumi15, "Lumi. Syst.", "f");    
 	if(PLOTGLOBAL && DSSVERR) leg2->AddEntry(ALLdssvEW, "DSSV'14", "lf");
   else leg2->AddEntry(ALLdssvEW, "DSSV'14", "l");
-  if(PLOTGLOBAL) leg2->AddEntry(ALLnnpdfEW, "NNPDF1.1", "lf");
+  if(PLOTGLOBAL) leg2->AddEntry(ALLnnpdfEW, "NNPDFpol1.1", "lf");
 
   text0.DrawLatex(XPOS,YPOS1,"#font[72]{#color[4]{STAR}} #font[62]{2015, #sqrt{s} = 200 GeV}");
   text0.DrawLatex(XPOS,YPOS2,"p+p #rightarrow Jet + Jet + X");
@@ -361,6 +400,10 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
   if(PLOTGLOBAL) ALLnnpdfEEWW->Draw("3same");
   if(PLOTGLOBAL) ALLnnpdfEEWW->Draw("cXsame");
   
+  dssv_EEWW_m->Draw("csame");
+  dssv_EEWW_p->Draw("csame");
+  nnpdf_EEWW_p->Draw("csame");
+  nnpdf_EEWW_m->Draw("csame");
 
   if(PLOT9)bxLumi09->Draw();
   bxLumi15->Draw();
