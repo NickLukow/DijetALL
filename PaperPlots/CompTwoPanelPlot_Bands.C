@@ -35,6 +35,7 @@ double YPOS5 = YMAX - YFRAC5*(YMAX-YMIN);
 Int_t PLOT9 = 1;
 Int_t PLOTGLOBAL = 1;
 Int_t DSSVERR = 1;
+Int_t FILL =1;
 
 
 #include <string>
@@ -73,6 +74,9 @@ TPad* dPad(string name, int isLog=0) {
 
   return pad;
 }
+
+
+
 
 void CompTwoPanelPlot_Bands(){
   gROOT->Reset();
@@ -301,6 +305,13 @@ nnpdf_EW_m->SetLineWidth(1);
   gALL09_EW->SetMarkerStyle(24);   gALL09_EW->SetMarkerSize(1.2);  
   gALL09_EW->SetLineWidth(3);
 
+  //White Fill Plot
+  TGraphErrors *gALL09_EW_Fill = new TGraphErrors(7,EWrun9x,EWrun9y,0,0);
+  gALL09_EW_Fill->SetMarkerSize(1.0);
+  gALL09_EW_Fill->SetMarkerStyle(20);
+  gALL09_EW_Fill->SetMarkerColor(kWhite);
+
+
   TGraphErrors *gSystALL09_EW = new TGraphErrors(7, EWrun9x, EWrun9y, EWrun9sysx, EWrun9sysy);
   gSystALL09_EW->SetMarkerColor(1);
   gSystALL09_EW->SetFillColorAlpha (kBlue-7, 0.80);//(18,0.80);
@@ -324,6 +335,10 @@ nnpdf_EW_m->SetLineWidth(1);
    
   gALL15_EW->Draw("AP"); 
 
+  TGraphErrors *gALL15_EW_Fill = new TGraphErrors(7,EWrun15x,EWrun15y,0,0);
+  gALL15_EW_Fill->SetMarkerSize(1.0);
+  gALL15_EW_Fill->SetMarkerStyle(21);
+  gALL15_EW_Fill->SetMarkerColor(kWhite);
   
   if(PLOTGLOBAL) ALLdssvEW->Draw("cXsame");
   if(PLOTGLOBAL && DSSVERR) ALLdssvEW->Draw("3same");
@@ -345,6 +360,9 @@ nnpdf_EW_m->SetLineWidth(1);
   if(PLOT9) gALL09_EW->Draw("Psame");
   gSystALL15_EW->Draw("2same");
   gALL15_EW->Draw("P"); 
+
+  if(FILL) gALL09_EW_Fill->Draw("Psame");
+  if(FILL) gALL15_EW_Fill->Draw("Psame");
 
   if(PLOT9) leg2->AddEntry(gALL09_EW, "2009 Data, PRD 95 (2017) 71103", "p");
   if(PLOT9) leg2->AddEntry(gSystALL09_EW, "2009 Syst.", "f");
@@ -372,6 +390,12 @@ nnpdf_EW_m->SetLineWidth(1);
   gALL09_EEWW->SetMarkerStyle(24);   gALL09_EEWW->SetMarkerSize(1.2);  
   gALL09_EEWW->SetLineWidth(3);
 
+  TGraphErrors *gALL09_EEWW_Fill = new TGraphErrors(7,EEWWrun9x,EEWWrun9y,0,0);
+  gALL09_EEWW_Fill->SetMarkerSize(1.0);
+  gALL09_EEWW_Fill->SetMarkerStyle(20);
+  gALL09_EEWW_Fill->SetMarkerColor(kWhite);
+
+
   TGraphErrors *gSystALL09_EEWW = new TGraphErrors(7, EEWWrun9x, EEWWrun9y, EEWWrun9sysx, EEWWrun9sysy);
   gSystALL09_EEWW->SetMarkerColor(1);
   gSystALL09_EEWW->SetFillColorAlpha(kBlue-7,0.80);
@@ -395,6 +419,11 @@ nnpdf_EW_m->SetLineWidth(1);
   gALL15_EEWW->SetLineWidth(3);
   gALL15_EEWW->Draw("AP"); 
 
+  TGraphErrors *gALL15_EEWW_Fill = new TGraphErrors(7,EEWWrun15x,EEWWrun15y,0,0);
+  gALL15_EEWW_Fill->SetMarkerSize(1.0);
+  gALL15_EEWW_Fill->SetMarkerStyle(21);
+  gALL15_EEWW_Fill->SetMarkerColor(kWhite);
+
   if(PLOTGLOBAL) ALLdssvEEWW->Draw("cXsame");
   if(PLOTGLOBAL && DSSVERR) ALLdssvEEWW->Draw("3same");
   if(PLOTGLOBAL) ALLnnpdfEEWW->Draw("3same");
@@ -414,6 +443,9 @@ nnpdf_EW_m->SetLineWidth(1);
   if(PLOT9) gALL09_EEWW->Draw("Psame");
   gSystALL15_EEWW->Draw("2same");
   gALL15_EEWW->Draw("P"); 
+  if(FILL) gALL09_EEWW_Fill->Draw("Psame");
+  if(FILL) gALL15_EEWW_Fill->Draw("Psame");
+
   text0.DrawLatex(XPOS,YPOS1,"sign(#eta_{1}) = sign(#eta_{2})"); //Changed 
   leg2->Draw();
 
