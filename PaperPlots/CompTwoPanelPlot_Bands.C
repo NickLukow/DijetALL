@@ -145,13 +145,13 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
   ALLdssvEW->SetLineWidth(3);
 
   TGraphAsymmErrors *ALLnnpdfEEWW = new TGraphAsymmErrors("Theory/NNPDF/Coarse_Trunc/EEWW_x_Asym.NNPDF.txt", "%lg %lg %lg %lg");
-  ALLnnpdfEEWW->SetLineColor(kMagenta+1);
+  ALLnnpdfEEWW->SetLineColor(kCyan+3);
   ALLnnpdfEEWW->SetFillColor(kCyan+1);
   ALLnnpdfEEWW->SetFillStyle(3345);
   ALLnnpdfEEWW->SetLineWidth(3);
 
   TGraphAsymmErrors *ALLnnpdfEW = new TGraphAsymmErrors("Theory/NNPDF/Coarse_Trunc/EW_x_Asym.NNPDF.txt", "%lg %lg %lg %lg");
-  ALLnnpdfEW->SetLineColor(kMagenta+1);
+  ALLnnpdfEW->SetLineColor(kCyan+3);
   ALLnnpdfEW->SetFillColor(kCyan+1);
   ALLnnpdfEW->SetFillStyle(3345);
   ALLnnpdfEW->SetLineWidth(3);
@@ -303,7 +303,7 @@ nnpdf_EW_m->SetLineWidth(1);
 
   TGraphErrors *gSystALL09_EW = new TGraphErrors(7, EWrun9x, EWrun9y, EWrun9sysx, EWrun9sysy);
   gSystALL09_EW->SetMarkerColor(1);
-  gSystALL09_EW->SetFillColorAlpha(18,0.80);
+  gSystALL09_EW->SetFillColorAlpha (kBlue-7, 0.80);//(18,0.80);
 
   TGraphErrors *gSystALL15_EW = new TGraphErrors(7, EWrun15x, EWrun15y, EWrun15sysx, EWrun15sysy);
   gSystALL15_EW->SetMarkerColor(1);
@@ -316,7 +316,7 @@ nnpdf_EW_m->SetLineWidth(1);
   gALL15_EW->GetYaxis()->SetNdivisions(6,5,0);
   gALL15_EW->SetMarkerColor(kGreen+3);
   gALL15_EW->SetLineColor(kGreen+3);
-  gALL15_EW->SetMarkerStyle(21);   gALL15_EW->SetMarkerSize(1.2);
+  gALL15_EW->SetMarkerStyle(25);   gALL15_EW->SetMarkerSize(1.2);
   gALL15_EW->GetXaxis()->SetLimits(XMIN,XMAX); //Changed
   gALL15_EW->GetHistogram()->SetMinimum(YMIN);  //Changed
   gALL15_EW->GetHistogram()->SetMaximum(YMAX);  //0.105 //Changed
@@ -346,7 +346,7 @@ nnpdf_EW_m->SetLineWidth(1);
   gSystALL15_EW->Draw("2same");
   gALL15_EW->Draw("P"); 
 
-  if(PLOT9) leg2->AddEntry(gALL09_EW, "2009 Data, PRL 115 (2015) 92002", "p");
+  if(PLOT9) leg2->AddEntry(gALL09_EW, "2009 Data, PRD 95 (2017) 71103", "p");
   if(PLOT9) leg2->AddEntry(gSystALL09_EW, "2009 Syst.", "f");
   //if(PLOT9) leg2->AddEntry(bxLumi09, "2009 Lumi. Syst.", "f");    
   leg2->AddEntry(gALL15_EW, "STAR 2015", "p");
@@ -374,7 +374,7 @@ nnpdf_EW_m->SetLineWidth(1);
 
   TGraphErrors *gSystALL09_EEWW = new TGraphErrors(7, EEWWrun9x, EEWWrun9y, EEWWrun9sysx, EEWWrun9sysy);
   gSystALL09_EEWW->SetMarkerColor(1);
-  gSystALL09_EEWW->SetFillColorAlpha(18,0.80);
+  gSystALL09_EEWW->SetFillColorAlpha(kBlue-7,0.80);
 
   TGraphErrors *gSystALL15_EEWW = new TGraphErrors(7, EEWWrun15x, EEWWrun15y, EEWWrun15sysx, EEWWrun15sysy);
   gSystALL15_EEWW->SetMarkerColor(1);
@@ -388,7 +388,7 @@ nnpdf_EW_m->SetLineWidth(1);
   gALL15_EEWW->GetXaxis()->SetTitleSize(25);
   gALL15_EEWW->SetMarkerColor(kGreen+3);
   gALL15_EEWW->SetLineColor(kGreen+3);
-  gALL15_EEWW->SetMarkerStyle(21);   gALL15_EEWW->SetMarkerSize(1.2);
+  gALL15_EEWW->SetMarkerStyle(25); /*21*/  gALL15_EEWW->SetMarkerSize(1.2);
   gALL15_EEWW->GetXaxis()->SetLimits(XMIN,XMAX);  //Changed
   gALL15_EEWW->GetHistogram()->SetMinimum(YMIN); //Changed
   gALL15_EEWW->GetHistogram()->SetMaximum(YMAX);  //Changed
