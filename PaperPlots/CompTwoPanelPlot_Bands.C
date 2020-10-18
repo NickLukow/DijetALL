@@ -37,6 +37,9 @@ Int_t PLOTGLOBAL = 1;
 Int_t DSSVERR = 1;
 Int_t FILL =1;
 
+Int_t Run9MarkerStyle = 26;
+Int_t Run15MarkerStyle = 25;
+
 
 #include <string>
 #include "Riostream.h"
@@ -150,12 +153,14 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
 
   TGraphAsymmErrors *ALLnnpdfEEWW = new TGraphAsymmErrors("Theory/NNPDF/Coarse_Trunc/EEWW_x_Asym.NNPDF.txt", "%lg %lg %lg %lg");
   ALLnnpdfEEWW->SetLineColor(kCyan+3);
+  ALLnnpdfEEWW->SetLineStyle(9);
   ALLnnpdfEEWW->SetFillColor(kCyan+1);
   ALLnnpdfEEWW->SetFillStyle(3345);
   ALLnnpdfEEWW->SetLineWidth(3);
 
   TGraphAsymmErrors *ALLnnpdfEW = new TGraphAsymmErrors("Theory/NNPDF/Coarse_Trunc/EW_x_Asym.NNPDF.txt", "%lg %lg %lg %lg");
   ALLnnpdfEW->SetLineColor(kCyan+3);
+  ALLnnpdfEW->SetLineStyle(9);
   ALLnnpdfEW->SetFillColor(kCyan+1);
   ALLnnpdfEW->SetFillStyle(3345);
   ALLnnpdfEW->SetLineWidth(3);
@@ -302,13 +307,13 @@ nnpdf_EW_m->SetLineWidth(1);
   TGraphErrors *gALL09_EW    = new TGraphErrors(7,EWrun9x,EWrun9y,0,EWrun9yerror);
   gALL09_EW->SetMarkerColor(4);
   gALL09_EW->SetLineColor(4);
-  gALL09_EW->SetMarkerStyle(24);   gALL09_EW->SetMarkerSize(1.2);  
+  gALL09_EW->SetMarkerStyle(Run9MarkerStyle);   gALL09_EW->SetMarkerSize(1.2);  
   gALL09_EW->SetLineWidth(3);
 
   //White Fill Plot
   TGraphErrors *gALL09_EW_Fill = new TGraphErrors(7,EWrun9x,EWrun9y,0,0);
   gALL09_EW_Fill->SetMarkerSize(1.0);
-  gALL09_EW_Fill->SetMarkerStyle(20);
+  gALL09_EW_Fill->SetMarkerStyle(Run9MarkerStyle-4);
   gALL09_EW_Fill->SetMarkerColor(kWhite);
 
 
@@ -318,7 +323,7 @@ nnpdf_EW_m->SetLineWidth(1);
 
   TGraphErrors *gSystALL15_EW = new TGraphErrors(7, EWrun15x, EWrun15y, EWrun15sysx, EWrun15sysy);
   gSystALL15_EW->SetMarkerColor(1);
-  gSystALL15_EW->SetFillColorAlpha(29,0.80);
+  gSystALL15_EW->SetFillColorAlpha(kGreen+2,0.80);
 
   TGraphErrors *gALL15_EW = new TGraphErrors(7,EWrun15x,EWrun15y,0,EWrun15yerror);
   gALL15_EW->SetTitle("A_LL ADC+3 UE ; x_{T} = 2p_{T}/#sqrt{s};A_{LL}");
@@ -327,7 +332,7 @@ nnpdf_EW_m->SetLineWidth(1);
   gALL15_EW->GetYaxis()->SetNdivisions(6,5,0);
   gALL15_EW->SetMarkerColor(kGreen+3);
   gALL15_EW->SetLineColor(kGreen+3);
-  gALL15_EW->SetMarkerStyle(25);   gALL15_EW->SetMarkerSize(1.2);
+  gALL15_EW->SetMarkerStyle(Run15MarkerStyle);   gALL15_EW->SetMarkerSize(1.2);
   gALL15_EW->GetXaxis()->SetLimits(XMIN,XMAX); //Changed
   gALL15_EW->GetHistogram()->SetMinimum(YMIN);  //Changed
   gALL15_EW->GetHistogram()->SetMaximum(YMAX);  //0.105 //Changed
@@ -337,7 +342,7 @@ nnpdf_EW_m->SetLineWidth(1);
 
   TGraphErrors *gALL15_EW_Fill = new TGraphErrors(7,EWrun15x,EWrun15y,0,0);
   gALL15_EW_Fill->SetMarkerSize(1.0);
-  gALL15_EW_Fill->SetMarkerStyle(21);
+  gALL15_EW_Fill->SetMarkerStyle(Run15MarkerStyle-4);
   gALL15_EW_Fill->SetMarkerColor(kWhite);
   
   if(PLOTGLOBAL) ALLdssvEW->Draw("cXsame");
@@ -364,15 +369,15 @@ nnpdf_EW_m->SetLineWidth(1);
   if(FILL) gALL09_EW_Fill->Draw("Psame");
   if(FILL) gALL15_EW_Fill->Draw("Psame");
 
-  if(PLOT9) leg2->AddEntry(gALL09_EW, "2009 Data, PRD 95 (2017) 71103", "p");
-  if(PLOT9) leg2->AddEntry(gSystALL09_EW, "2009 Syst.", "f");
+  if(PLOT9) leg2->AddEntry(gALL09_EW, " 2009 Data, PRD 95 (2017) 71103", "p");
+  if(PLOT9) leg2->AddEntry(gSystALL09_EW, " 2009 Syst.", "f");
   //if(PLOT9) leg2->AddEntry(bxLumi09, "2009 Lumi. Syst.", "f");    
-  leg2->AddEntry(gALL15_EW, "STAR 2015", "p");
-  leg2->AddEntry(gSystALL15_EW, "2015 Syst.", "f");    
+  leg2->AddEntry(gALL15_EW, " STAR 2015", "p");
+  leg2->AddEntry(gSystALL15_EW, " 2015 Syst.", "f");    
   //leg2->AddEntry(bxLumi15, "Lumi. Syst.", "f");    
-	if(PLOTGLOBAL && DSSVERR) leg2->AddEntry(ALLdssvEW, "DSSV'14", "lf");
-  else leg2->AddEntry(ALLdssvEW, "DSSV'14", "l");
-  if(PLOTGLOBAL) leg2->AddEntry(ALLnnpdfEW, "NNPDFpol1.1", "lf");
+	if(PLOTGLOBAL && DSSVERR) leg2->AddEntry(ALLdssvEW, " DSSV'14", "lf");
+  else leg2->AddEntry(ALLdssvEW, " DSSV'14", "l");
+  if(PLOTGLOBAL) leg2->AddEntry(ALLnnpdfEW, " NNPDFpol1.1", "lf");
 
   text0.DrawLatex(XPOS,YPOS1,"#font[72]{#color[4]{STAR}} #font[62]{2015, #sqrt{s} = 200 GeV}");
   text0.DrawLatex(XPOS,YPOS2,"p+p #rightarrow Jet + Jet + X");
@@ -387,12 +392,12 @@ nnpdf_EW_m->SetLineWidth(1);
   TGraphErrors *gALL09_EEWW    = new TGraphErrors(7,EEWWrun9x,EEWWrun9y,0,EEWWrun9yerror);
   gALL09_EEWW->SetMarkerColor(4);
   gALL09_EEWW->SetLineColor(4);
-  gALL09_EEWW->SetMarkerStyle(24);   gALL09_EEWW->SetMarkerSize(1.2);  
+  gALL09_EEWW->SetMarkerStyle(Run9MarkerStyle);   gALL09_EEWW->SetMarkerSize(1.2);  
   gALL09_EEWW->SetLineWidth(3);
 
   TGraphErrors *gALL09_EEWW_Fill = new TGraphErrors(7,EEWWrun9x,EEWWrun9y,0,0);
   gALL09_EEWW_Fill->SetMarkerSize(1.0);
-  gALL09_EEWW_Fill->SetMarkerStyle(20);
+  gALL09_EEWW_Fill->SetMarkerStyle(Run9MarkerStyle-4);
   gALL09_EEWW_Fill->SetMarkerColor(kWhite);
 
 
@@ -402,7 +407,7 @@ nnpdf_EW_m->SetLineWidth(1);
 
   TGraphErrors *gSystALL15_EEWW = new TGraphErrors(7, EEWWrun15x, EEWWrun15y, EEWWrun15sysx, EEWWrun15sysy);
   gSystALL15_EEWW->SetMarkerColor(1);
-  gSystALL15_EEWW->SetFillColorAlpha(29,0.80);
+  gSystALL15_EEWW->SetFillColorAlpha(kGreen+2,0.80); //29
 
   TGraphErrors *gALL15_EEWW = new TGraphErrors(7,EEWWrun15x,EEWWrun15y,0,EEWWrun15yerror);
   gALL15_EEWW->SetTitle("A_LL; M_{inv}/#sqrt{s} ;A_{LL}");
@@ -412,7 +417,7 @@ nnpdf_EW_m->SetLineWidth(1);
   gALL15_EEWW->GetXaxis()->SetTitleSize(25);
   gALL15_EEWW->SetMarkerColor(kGreen+3);
   gALL15_EEWW->SetLineColor(kGreen+3);
-  gALL15_EEWW->SetMarkerStyle(25); /*21*/  gALL15_EEWW->SetMarkerSize(1.2);
+  gALL15_EEWW->SetMarkerStyle(Run15MarkerStyle); /*21*/  gALL15_EEWW->SetMarkerSize(1.2);
   gALL15_EEWW->GetXaxis()->SetLimits(XMIN,XMAX);  //Changed
   gALL15_EEWW->GetHistogram()->SetMinimum(YMIN); //Changed
   gALL15_EEWW->GetHistogram()->SetMaximum(YMAX);  //Changed
@@ -421,8 +426,8 @@ nnpdf_EW_m->SetLineWidth(1);
 
   TGraphErrors *gALL15_EEWW_Fill = new TGraphErrors(7,EEWWrun15x,EEWWrun15y,0,0);
   gALL15_EEWW_Fill->SetMarkerSize(1.0);
-  gALL15_EEWW_Fill->SetMarkerStyle(21);
-  gALL15_EEWW_Fill->SetMarkerColor(kWhite);
+  gALL15_EEWW_Fill->SetMarkerStyle(Run15MarkerStyle-4);
+  gALL15_EEWW_Fill->SetMarkerColor(kWhite); //kWhite
 
   if(PLOTGLOBAL) ALLdssvEEWW->Draw("cXsame");
   if(PLOTGLOBAL && DSSVERR) ALLdssvEEWW->Draw("3same");
