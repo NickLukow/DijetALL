@@ -46,7 +46,7 @@ TH1D* hRatio(TH1D* hdata, TH1D* hemb, int mar, int col) {
  
   ratio->SetBit(TH1::kNoTitle);
   ratio->SetLineWidth(2);
-  ratio->GetYaxis()->SetTitle("#frac{data-simu}{data}");
+  ratio->GetYaxis()->SetTitle("#frac{Data-Simu}{Data}");
   ratio->GetXaxis()->SetTitle("Dijet M_{inv} (GeV/c^{2})");
   ratio->GetYaxis()->CenterTitle();
   ratio->GetYaxis()->SetRangeUser(-0.3,0.3);
@@ -183,7 +183,8 @@ void MassDataEmbPaper_OneRatio(){
 //<-------Inserted Code
 
 // Second axis with labels
-  const char *ParMass[7]  = {"18.8", "22.0", "26.8", "32.7", "39.7", "49.5", "68.0"};
+  //const char *ParMass[7]  = {"18.8", "22.0", "26.8", "32.7", "39.7", "49.6", "68.3"}; 
+  const char *ParMass[7]  = {"20.4", "23.6", "28.4", "34.3", "41.2", "51.1", "69.7"};
   TH1D *hEmbDijetMassCopy = (TH1D*)hR15EmbMass[1]->Clone("hEmbDijetMassCopy");
   hEmbDijetMassCopy->Reset();
   hEmbDijetMassCopy->SetLineColor(kBlack);
@@ -193,7 +194,7 @@ void MassDataEmbPaper_OneRatio(){
   hEmbDijetMassCopy->LabelsOption("v");
   hEmbDijetMassCopy->GetXaxis()->SetLabelOffset(-0.005); //0.037
   hEmbDijetMassCopy->GetXaxis()->SetTitleOffset(0.7); //3.0
-  hEmbDijetMassCopy->GetXaxis()->SetTitle("Parton dijet M_{inv} (GeV/c^{2})");
+  hEmbDijetMassCopy->GetXaxis()->SetTitle("Parton Dijet M_{inv} (GeV/c^{2})");
 
   
 
@@ -261,9 +262,18 @@ void MassDataEmbPaper_OneRatio(){
   
   // Pad with simu-data for JP2
   dPad("dMass")->cd();
+  TLine *line = new TLine(17,0,82,0);
+  line->SetLineWidth(2);
+  line->SetLineStyle(2);
+  line->Draw();
   hRatio(hR15DataMass[0],hR15EmbMass[0],markersr[0],colors[0])->Draw("");
+
+  line->Draw();
+
+  hRatio(hR15DataMass[0],hR15EmbMass[0],markersr[0],colors[0])->Draw("same");
   hRatio(hR15DataMass[1],hR15EmbMass[1],markersr[1],colors[1])->Draw("Same");
   
+
   cMass->Draw();
   
 
