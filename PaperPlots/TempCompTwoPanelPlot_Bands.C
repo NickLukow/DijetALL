@@ -245,13 +245,22 @@ nnpdf_EW_m->SetLineWidth(1);
   //TLegend *leglumi9 = new TLegend(0.632,0.268,0.833,0.349);
   double lumiypos = 0.26; //0.39
   //TLegend *leglumi9 = new TLegend(0.67,lumiypos,0.871,lumiypos+0.081);
-  TLegend *leglumi9 = new TLegend(0.66,lumiypos,0.870,lumiypos+0.081);
+  //TLegend *leglumi9 = new TLegend(0.66,lumiypos,0.870,lumiypos+0.081); //first submission
+  TLegend *leglumi9 = new TLegend(0.66,lumiypos-0.045,0.870,lumiypos+0.081-0.045);
   leglumi9->SetTextSize(19);
   leglumi9->SetTextFont(43);
   leglumi9->AddEntry("","Lumi. Sys.","");
+  leglumi9->AddEntry("","","");
   leglumi9->AddEntry("","2015   2009","");
   leglumi9->SetBorderSize(0);  leglumi9->SetFillStyle(0);
 
+  TLegend *leglumi9_2 = new TLegend(0.66,lumiypos+0.085,0.870,lumiypos+0.085+0.081);
+  leglumi9_2->SetTextSize(19);
+  leglumi9_2->SetTextFont(43);
+  leglumi9_2->AddEntry("","Lumi. Sys.","");
+  leglumi9_2->AddEntry("","","");
+  leglumi9_2->AddEntry("","2015   2009","");
+  leglumi9_2->SetBorderSize(0);  leglumi9->SetFillStyle(0);
 
 
   TLatex text0;
@@ -273,6 +282,16 @@ nnpdf_EW_m->SetLineWidth(1);
   textP.SetTextAlign(12);
   textP.SetTextFont(43);
   textP.SetTextSize(19); //25  20
+
+  TLatex textP1;
+  textP1.SetTextAlign(12);
+  textP1.SetTextFont(43);
+  textP1.SetTextSize(19); //25  20
+
+  TLatex textP2;
+  textP2.SetTextAlign(12);
+  textP2.SetTextFont(43);
+  textP2.SetTextSize(19); //25  20
   
   TLegend *legP = new TLegend(0.12,0.04,0.40,0.1);
   legP->SetTextSize(24);
@@ -347,9 +366,9 @@ nnpdf_EW_m->SetLineWidth(1);
   //nnpdf_EW_m->Draw("csame");
 
 
+  if(PLOT9)leglumi9->Draw();
   if(PLOT9)bxLumi09->Draw();
   bxLumi15->Draw();
-  if(PLOT9)leglumi9->Draw();
   line->Draw();
 
 
@@ -383,7 +402,9 @@ if(FILL) gALL09_EEWW_Fill->Draw("Psame");
   
 
 
-  textP.DrawLatex(XPOS - XPOS*0.15,YPOS5,"#pm 6.1% (2015) and #pm 6.5% (2009) scale uncertainty from polarization not shown");
+  //textP.DrawLatex(XPOS - XPOS*0.15,YPOS5,"#pm 6.1% (2015) and #pm 6.5% (2009) scale uncertainty from polarization not shown");
+  textP1.DrawLatex(XPOS - XPOS*0.15,YPOS5+0.006,"#pm 6.1% (2015) and #pm 6.5% (2009) scale ");
+  textP2.DrawLatex(XPOS - XPOS*0.15,YPOS5,"uncertainty from polarization not shown");
 
 
   cALL->cd();
@@ -438,19 +459,13 @@ if(FILL) gALL09_EEWW_Fill->Draw("Psame");
   if(DSSVERR) dssv_EW_p->Draw("csame");
   //nnpdf_EEWW_p->Draw("csame");
   //nnpdf_EEWW_m->Draw("csame");
-/*
-  TLegend *leglumi9_2 = new TLegend(0.66,lumiypos+0.085,0.870,lumiypos+0.085+0.081);
-  leglumi9_2->SetTextSize(19);
-  leglumi9_2->SetTextFont(43);
-  leglumi9_2->AddEntry("","Lumi. Sys.","");
-  leglumi9_2->AddEntry("","","");
-  leglumi9_2->AddEntry("","2015   2009","");
-  leglumi9_2->SetBorderSize(0);  leglumi9->SetFillStyle(0);
+
+  
 
   if(PLOT9)leglumi9_2->Draw();
   if(PLOT9)bxLumi09->Draw();
   bxLumi15->Draw();
-  */
+  
   line->Draw();
  
   
@@ -465,12 +480,15 @@ if(FILL) gALL09_EEWW_Fill->Draw("Psame");
   text0.DrawLatex(XPOS,YPOS1,"sign(#it{#eta}_{1}) #neq sign(#it{#eta}_{2})"); //Changed 
   leg2->Draw();
 
+
+  textP1.DrawLatex(XPOS - XPOS*0.15,YPOS5+0.006,"#pm 6.1% (2015) and #pm 6.5% (2009) scale ");
+  textP2.DrawLatex(XPOS - XPOS*0.15,YPOS5,"uncertainty from polarization not shown");
   //textP.DrawLatex(XPOS - XPOS*0.15,YPOS5,"#pm 6.1% (2015) and 6.5% (2009) scale uncertainty from polarization not shown");
 
 
   //cALL->Draw();
 
-  cALL->Print("./Figures/Run15DijetALL_TwoPanel.pdf");
+  cALL->Print("./Figures/Run15DijetALL_TwoPanel_v2.pdf");
   //cALL->Print("./Figures/Run15DijetALL_TwoPanel_Print.pdf");
   //cALL->SaveAs("./Figures/Run15DijetALL_TwoPanel_SaveAs.pdf");
   
