@@ -13,16 +13,16 @@
 
 //To change axes, change these values only
 double XMIN = 0.05; //0.05
-double XMAX = 0.35;
+double XMAX = 0.355;
 double YMIN = -0.04;  //with 9 -0.04   without -0.021
 double YMAX = 0.105;  // with 9 0.125   without 0.105
 
 //These are fractions calculated from Maria's original code
 double XFRAC = 0.071428;
-double YFRAC1 = 0.111111;
-double YFRAC2 = 0.188888;
-double YFRAC3 = 0.266666;
-double YFRAC4 = 0.344444;
+double YFRAC1 = 0.066666;//0.111111;
+double YFRAC2 = 0.188888 - 0.044444444;
+double YFRAC3 = 0.266666 - 0.044444444;
+double YFRAC4 = 0.344444 - 0.044444444;
 double YFRAC5 = 0.916666;
 
 double XPOS = XFRAC*(XMAX-XMIN) + XMIN;
@@ -37,8 +37,8 @@ Int_t PLOTGLOBAL = 1;
 Int_t DSSVERR = 0;
 Int_t FILL =1;
 
-Int_t Run9MarkerStyle = 26;
-Int_t Run15MarkerStyle = 25;
+Int_t Run9MarkerStyle = 26; //26
+Int_t Run15MarkerStyle = 25; //25
 
 
 #include <string>
@@ -89,7 +89,7 @@ void TempCompTwoPanelPlot_Bands(){
   gStyle->SetTitleOffset(2.5,"x");
   
 double LEGLOWY = 0.68 - 3*0.06*PLOT9 - 2*0.06*PLOTGLOBAL; //Using PLOT9 adds three entries to legend. Using PLOTGLOBAL adds 2
-if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
+if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5 + 2*0.06 +0.04444444;
 
 /*
   double EEWWrun9x[7] = {17.70,21.34,26.02,31.66,38.25,48.28,66.65};
@@ -137,28 +137,28 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
 //---------------> Theory
 
 
-  TGraphAsymmErrors *ALLdssvEEWW = new TGraphAsymmErrors("./Theory/DSSV_MC/EEWW_x.DSSV.txt", "%lg %lg %lg %lg");
+  TGraphAsymmErrors *ALLdssvEEWW = new TGraphAsymmErrors("./Theory/DSSV/EEWW_x.DSSV.txt", "%lg %lg %lg %lg");
   ALLdssvEEWW->SetLineColor(kRed);
   ALLdssvEEWW->SetLineStyle(7);
   ALLdssvEEWW->SetFillColor(kMagenta-4);
   ALLdssvEEWW->SetFillStyle(3354);
   ALLdssvEEWW->SetLineWidth(3);
 
-  TGraphAsymmErrors *ALLdssvEW = new TGraphAsymmErrors("./Theory/DSSV_MC/EW_x.DSSV.txt", "%lg %lg %lg %lg");
+  TGraphAsymmErrors *ALLdssvEW = new TGraphAsymmErrors("./Theory/DSSV/EW_x.DSSV.txt", "%lg %lg %lg %lg");
   ALLdssvEW->SetLineColor(kRed);
   ALLdssvEW->SetLineStyle(7);
   ALLdssvEW->SetFillColor(kMagenta-4);
   ALLdssvEW->SetFillStyle(3354);
   ALLdssvEW->SetLineWidth(3);
 
-  TGraphAsymmErrors *ALLnnpdfEEWW = new TGraphAsymmErrors("Theory/NNPDF/Coarse_Trunc/EEWW_x_Asym.NNPDF.txt", "%lg %lg %lg %lg");
+  TGraphAsymmErrors *ALLnnpdfEEWW = new TGraphAsymmErrors("Theory/NNPDF/EEWW_x_Asym.NNPDF.txt", "%lg %lg %lg %lg");
   ALLnnpdfEEWW->SetLineColor(kMagenta+1);
   //ALLnnpdfEEWW->SetLineStyle(9);
   ALLnnpdfEEWW->SetFillColor(kCyan+1);
   ALLnnpdfEEWW->SetFillStyle(3544);
   ALLnnpdfEEWW->SetLineWidth(3);
 
-  TGraphAsymmErrors *ALLnnpdfEW = new TGraphAsymmErrors("Theory/NNPDF/Coarse_Trunc/EW_x_Asym.NNPDF.txt", "%lg %lg %lg %lg");
+  TGraphAsymmErrors *ALLnnpdfEW = new TGraphAsymmErrors("Theory/NNPDF/EW_x_Asym.NNPDF.txt", "%lg %lg %lg %lg");
   ALLnnpdfEW->SetLineColor(kMagenta+1);
   //ALLnnpdfEW->SetLineStyle(9);
   ALLnnpdfEW->SetFillColor(kCyan+1);
@@ -167,31 +167,31 @@ if (PLOT9 == 1 && PLOTGLOBAL==1) LEGLOWY = 0.5;
 
 
 //Plus and Minus Lines
-TGraph *dssv_EEWW_p = new TGraph("./Theory/DSSV_MC/EEWW_x_P.DSSV.txt", "%lg %lg");
+TGraph *dssv_EEWW_p = new TGraph("./Theory/DSSV/EEWW_x_P.DSSV.txt", "%lg %lg");
 dssv_EEWW_p->SetLineColor(kMagenta-4);
 dssv_EEWW_p->SetLineWidth(1);
-TGraph *dssv_EEWW_m = new TGraph("./Theory/DSSV_MC/EEWW_x_M.DSSV.txt", "%lg %lg");
+TGraph *dssv_EEWW_m = new TGraph("./Theory/DSSV/EEWW_x_M.DSSV.txt", "%lg %lg");
 dssv_EEWW_m->SetLineColor(kMagenta-4);
 dssv_EEWW_m->SetLineWidth(1);
 
-TGraph *dssv_EW_p = new TGraph("./Theory/DSSV_MC/EW_x_P.DSSV.txt", "%lg %lg");
+TGraph *dssv_EW_p = new TGraph("./Theory/DSSV/EW_x_P.DSSV.txt", "%lg %lg");
 dssv_EW_p->SetLineColor(kMagenta-4);
 dssv_EW_p->SetLineWidth(1);
-TGraph *dssv_EW_m = new TGraph("./Theory/DSSV_MC/EW_x_M.DSSV.txt", "%lg %lg");
+TGraph *dssv_EW_m = new TGraph("./Theory/DSSV/EW_x_M.DSSV.txt", "%lg %lg");
 dssv_EW_m->SetLineColor(kMagenta-4);
 dssv_EW_m->SetLineWidth(1);
 
-TGraph *nnpdf_EEWW_p = new TGraph("./Theory/NNPDF/Coarse_Trunc/EEWW_x_P.NNPDF.txt", "%lg %lg");
+TGraph *nnpdf_EEWW_p = new TGraph("./Theory/NNPDF/EEWW_x_P.NNPDF.txt", "%lg %lg");
 nnpdf_EEWW_p->SetLineColor(kCyan+1);
 nnpdf_EEWW_p->SetLineWidth(1);
-TGraph *nnpdf_EEWW_m = new TGraph("./Theory/NNPDF/Coarse_Trunc/EEWW_x_M.NNPDF.txt", "%lg %lg");
+TGraph *nnpdf_EEWW_m = new TGraph("./Theory/NNPDF/EEWW_x_M.NNPDF.txt", "%lg %lg");
 nnpdf_EEWW_m->SetLineColor(kCyan+1);
 nnpdf_EEWW_m->SetLineWidth(1);
 
-TGraph *nnpdf_EW_p = new TGraph("./Theory/NNPDF/Coarse_Trunc/EW_x_P.NNPDF.txt", "%lg %lg");
+TGraph *nnpdf_EW_p = new TGraph("./Theory/NNPDF/EW_x_P.NNPDF.txt", "%lg %lg");
 nnpdf_EW_p->SetLineColor(kCyan+1);
 nnpdf_EW_p->SetLineWidth(1);
-TGraph *nnpdf_EW_m = new TGraph("./Theory/NNPDF/Coarse_Trunc/EW_x_M.NNPDF.txt", "%lg %lg");
+TGraph *nnpdf_EW_m = new TGraph("./Theory/NNPDF/EW_x_M.NNPDF.txt", "%lg %lg");
 nnpdf_EW_m->SetLineColor(kCyan+1);
 nnpdf_EW_m->SetLineWidth(1);
 
@@ -243,12 +243,13 @@ nnpdf_EW_m->SetLineWidth(1);
   TCanvas *cALL = new TCanvas("cALL"," ALL",800,800*1.26);  //800,800*1.26
 
   //TLegend *leglumi9 = new TLegend(0.632,0.268,0.833,0.349);
-  double lumiypos = 0.39;
-  TLegend *leglumi9 = new TLegend(0.67,lumiypos,0.871,lumiypos+0.081);
+  double lumiypos = 0.26; //0.39
+  //TLegend *leglumi9 = new TLegend(0.67,lumiypos,0.871,lumiypos+0.081);
+  TLegend *leglumi9 = new TLegend(0.66,lumiypos,0.870,lumiypos+0.081);
   leglumi9->SetTextSize(19);
   leglumi9->SetTextFont(43);
-  leglumi9->AddEntry("","Lumi. Syst.","");
-  leglumi9->AddEntry("","2015     2009","");
+  leglumi9->AddEntry("","Lumi. Sys.","");
+  leglumi9->AddEntry("","2015   2009","");
   leglumi9->SetBorderSize(0);  leglumi9->SetFillStyle(0);
 
 
@@ -263,18 +264,8 @@ nnpdf_EW_m->SetLineWidth(1);
   text1.SetTextFont(43);
   text1.SetTextSize(25);
 
-  TLegend *legeta1 = new TLegend(0.15,0.81,0.35,0.99);
-  legeta1->SetTextSize(25);
-  legeta1->SetTextFont(43);
-  legeta1->AddEntry("","0.5 < |#eta| < 1.0","");
-  legeta1->SetBorderSize(0);  legeta1->SetFillStyle(0);
 
-  TLegend *legeta2 = new TLegend(0.15,0.43,0.35,0.61);
-  legeta2->SetTextSize(25);
-  legeta2->SetTextFont(43);
-  legeta2->AddEntry("","|#eta| < 0.5","");
-  legeta2->SetBorderSize(0);  legeta2->SetFillStyle(0);
-  TLegend *leg2 = new TLegend(0.170,LEGLOWY,0.27,0.86);
+  TLegend *leg2 = new TLegend(0.170,LEGLOWY,0.27,0.86 +0.04444444);
   leg2->SetTextSize(25);  leg2->SetBorderSize(0);  leg2->SetFillStyle(0);
   leg2->SetTextFont(43);
 
@@ -304,97 +295,13 @@ nnpdf_EW_m->SetLineWidth(1);
   cALL->cd();
   upPad("uRt",0)->cd();
    
-  TGraphErrors *gALL09_EW    = new TGraphErrors(7,EWrun9x,EWrun9y,0,EWrun9yerror);
-  gALL09_EW->SetMarkerColor(4);
-  gALL09_EW->SetLineColor(4);
-  gALL09_EW->SetMarkerStyle(Run9MarkerStyle);   gALL09_EW->SetMarkerSize(1.2);  
-  gALL09_EW->SetLineWidth(3);
-
-  //White Fill Plot
-  TGraphErrors *gALL09_EW_Fill = new TGraphErrors(7,EWrun9x,EWrun9y,0,0);
-  gALL09_EW_Fill->SetMarkerSize(1.0);
-  gALL09_EW_Fill->SetMarkerStyle(Run9MarkerStyle-4);
-  gALL09_EW_Fill->SetMarkerColor(kWhite);
-
-
-  TGraphErrors *gSystALL09_EW = new TGraphErrors(7, EWrun9x, EWrun9y, EWrun9sysx, EWrun9sysy);
-  gSystALL09_EW->SetMarkerColor(1);
-  gSystALL09_EW->SetFillColorAlpha (kBlue-7, 0.80);//(18,0.80);
-
-  TGraphErrors *gSystALL15_EW = new TGraphErrors(7, EWrun15x, EWrun15y, EWrun15sysx, EWrun15sysy);
-  gSystALL15_EW->SetMarkerColor(1);
-  gSystALL15_EW->SetFillColorAlpha(kGreen+2,0.80);
-
-  TGraphErrors *gALL15_EW = new TGraphErrors(7,EWrun15x,EWrun15y,0,EWrun15yerror);
-  gALL15_EW->SetTitle("A_LL; Parton Dijet M_{inv}/#sqrt{s} ;A_{LL}");
-  gALL15_EW->GetYaxis()->SetDecimals(2);
-  gALL15_EW->GetXaxis()->SetDecimals(2);
-  gALL15_EW->GetYaxis()->SetNdivisions(6,5,0);
-  gALL15_EW->SetMarkerColor(kGreen+3);
-  gALL15_EW->SetLineColor(kGreen+3);
-  gALL15_EW->SetMarkerStyle(Run15MarkerStyle);   gALL15_EW->SetMarkerSize(1.2);
-  gALL15_EW->GetXaxis()->SetLimits(XMIN,XMAX); //Changed
-  gALL15_EW->GetHistogram()->SetMinimum(YMIN);  //Changed
-  gALL15_EW->GetHistogram()->SetMaximum(YMAX);  //0.105 //Changed
-  gALL15_EW->SetLineWidth(3);
-   
-  gALL15_EW->Draw("AP"); 
-
-  TGraphErrors *gALL15_EW_Fill = new TGraphErrors(7,EWrun15x,EWrun15y,0,0);
-  gALL15_EW_Fill->SetMarkerSize(1.0);
-  gALL15_EW_Fill->SetMarkerStyle(Run15MarkerStyle-4);
-  gALL15_EW_Fill->SetMarkerColor(kWhite);
-  
-  if(PLOTGLOBAL) ALLdssvEW->Draw("cXsame");
-  if(PLOTGLOBAL && DSSVERR) ALLdssvEW->Draw("3same");
-  if(PLOTGLOBAL) ALLnnpdfEW->Draw("3same");
-  if(PLOTGLOBAL) ALLnnpdfEW->Draw("cXsame");
-  
-  if(DSSVERR) dssv_EW_m->Draw("csame");
-  if(DSSVERR) dssv_EW_p->Draw("csame");
-  //nnpdf_EW_p->Draw("csame");
-  //nnpdf_EW_m->Draw("csame");
-
-
-  //bxLumi15->Draw();
-  line->Draw();
-
-
- 
-  if(PLOT9) gSystALL09_EW->Draw("2same");
-  if(PLOT9) gALL09_EW->Draw("Psame");
-  gSystALL15_EW->Draw("2same");
-  gALL15_EW->Draw("P"); 
-
-  if(FILL) gALL09_EW_Fill->Draw("Psame");
-  if(FILL) gALL15_EW_Fill->Draw("Psame");
-
-  if(PLOT9) leg2->AddEntry(gALL09_EW, " 2009 Data, PRD 95 (2017) 71103", "p");
-  if(PLOT9) leg2->AddEntry(gSystALL09_EW, " 2009 Syst.", "f");
-  //if(PLOT9) leg2->AddEntry(bxLumi09, "2009 Lumi. Syst.", "f");    
-  leg2->AddEntry(gALL15_EW, " STAR 2015", "p");
-  leg2->AddEntry(gSystALL15_EW, " 2015 Syst.", "f");    
-  //leg2->AddEntry(bxLumi15, "Lumi. Syst.", "f");    
-	if(PLOTGLOBAL && DSSVERR) leg2->AddEntry(ALLdssvEW, " DSSV'14", "lf");
-  else leg2->AddEntry(ALLdssvEW, " DSSV'14", "l");
-  if(PLOTGLOBAL) leg2->AddEntry(ALLnnpdfEW, " NNPDFpol1.1", "lf");
-
-  text0.DrawLatex(XPOS,YPOS1,"#font[72]{#color[4]{STAR}} #font[62]{2015, #sqrt{s} = 200 GeV}");
-  text0.DrawLatex(XPOS,YPOS2,"p+p #rightarrow Jet + Jet + X");
-  text0.DrawLatex(XPOS,YPOS3,"Anti-k_{T} R=0.6");
-  text0.DrawLatex(XPOS,YPOS4,"sign(#eta_{1}) #neq sign(#eta_{2})"); //Changed
-
-  //textP.DrawLatex(XPOS,YPOS5,"#pm 6.1% (2015) and 6.5% (2009) scale uncertainty from polarization not shown");
-
-  cALL->cd();
-  dPad("dRt",0)->cd();
-
   TGraphErrors *gALL09_EEWW    = new TGraphErrors(7,EEWWrun9x,EEWWrun9y,0,EEWWrun9yerror);
   gALL09_EEWW->SetMarkerColor(4);
   gALL09_EEWW->SetLineColor(4);
   gALL09_EEWW->SetMarkerStyle(Run9MarkerStyle);   gALL09_EEWW->SetMarkerSize(1.2);  
   gALL09_EEWW->SetLineWidth(3);
 
+  //White Fill Plot
   TGraphErrors *gALL09_EEWW_Fill = new TGraphErrors(7,EEWWrun9x,EEWWrun9y,0,0);
   gALL09_EEWW_Fill->SetMarkerSize(1.0);
   gALL09_EEWW_Fill->SetMarkerStyle(Run9MarkerStyle-4);
@@ -403,32 +310,32 @@ nnpdf_EW_m->SetLineWidth(1);
 
   TGraphErrors *gSystALL09_EEWW = new TGraphErrors(7, EEWWrun9x, EEWWrun9y, EEWWrun9sysx, EEWWrun9sysy);
   gSystALL09_EEWW->SetMarkerColor(1);
-  gSystALL09_EEWW->SetFillColorAlpha(kBlue-7,0.80);
+  gSystALL09_EEWW->SetFillColorAlpha (kBlue-7, 0.80);//(18,0.80);
 
   TGraphErrors *gSystALL15_EEWW = new TGraphErrors(7, EEWWrun15x, EEWWrun15y, EEWWrun15sysx, EEWWrun15sysy);
   gSystALL15_EEWW->SetMarkerColor(1);
-  gSystALL15_EEWW->SetFillColorAlpha(kGreen+2,0.80); //29
+  gSystALL15_EEWW->SetFillColorAlpha(kGreen+2,0.80);
 
   TGraphErrors *gALL15_EEWW = new TGraphErrors(7,EEWWrun15x,EEWWrun15y,0,EEWWrun15yerror);
-  gALL15_EEWW->SetTitle("A_LL; Parton Dijet M_{inv}/#sqrt{s} ;A_{LL}");
+  gALL15_EEWW->SetTitle("#it{A_{LL}}; Parton Dijet #it{M}_{inv}/#sqrt{#it{s}} ;#it{A_{LL}}");
   gALL15_EEWW->GetYaxis()->SetDecimals(2);
   gALL15_EEWW->GetXaxis()->SetDecimals(2);
   gALL15_EEWW->GetYaxis()->SetNdivisions(6,5,0);
-  gALL15_EEWW->GetXaxis()->SetTitleSize(25);
   gALL15_EEWW->SetMarkerColor(kGreen+3);
   gALL15_EEWW->SetLineColor(kGreen+3);
-  gALL15_EEWW->SetMarkerStyle(Run15MarkerStyle); /*21*/  gALL15_EEWW->SetMarkerSize(1.2);
-  gALL15_EEWW->GetXaxis()->SetLimits(XMIN,XMAX);  //Changed
-  gALL15_EEWW->GetHistogram()->SetMinimum(YMIN); //Changed -0.02
-  gALL15_EEWW->GetHistogram()->SetMaximum(YMAX);  //Changed 0.105
+  gALL15_EEWW->SetMarkerStyle(Run15MarkerStyle);   gALL15_EEWW->SetMarkerSize(1.3);
+  gALL15_EEWW->GetXaxis()->SetLimits(XMIN,XMAX); //Changed
+  gALL15_EEWW->GetHistogram()->SetMinimum(YMIN);  //Changed
+  gALL15_EEWW->GetHistogram()->SetMaximum(YMAX);  //0.105 //Changed
   gALL15_EEWW->SetLineWidth(3);
+   
   gALL15_EEWW->Draw("AP"); 
 
   TGraphErrors *gALL15_EEWW_Fill = new TGraphErrors(7,EEWWrun15x,EEWWrun15y,0,0);
-  gALL15_EEWW_Fill->SetMarkerSize(1.0);
+  gALL15_EEWW_Fill->SetMarkerSize(1.1);
   gALL15_EEWW_Fill->SetMarkerStyle(Run15MarkerStyle-4);
-  gALL15_EEWW_Fill->SetMarkerColor(kWhite); //kWhite
-
+  gALL15_EEWW_Fill->SetMarkerColor(kWhite);
+  
   if(PLOTGLOBAL) ALLdssvEEWW->Draw("cXsame");
   if(PLOTGLOBAL && DSSVERR) ALLdssvEEWW->Draw("3same");
   if(PLOTGLOBAL) ALLnnpdfEEWW->Draw("3same");
@@ -436,25 +343,129 @@ nnpdf_EW_m->SetLineWidth(1);
   
   if(DSSVERR) dssv_EEWW_m->Draw("csame");
   if(DSSVERR) dssv_EEWW_p->Draw("csame");
-  //nnpdf_EEWW_p->Draw("csame");
-  //nnpdf_EEWW_m->Draw("csame");
+  //nnpdf_EW_p->Draw("csame");
+  //nnpdf_EW_m->Draw("csame");
+
 
   if(PLOT9)bxLumi09->Draw();
   bxLumi15->Draw();
   if(PLOT9)leglumi9->Draw();
   line->Draw();
+
+
  
   if(PLOT9) gSystALL09_EEWW->Draw("2same");
   if(PLOT9) gALL09_EEWW->Draw("Psame");
   gSystALL15_EEWW->Draw("2same");
   gALL15_EEWW->Draw("P"); 
-  if(FILL) gALL09_EEWW_Fill->Draw("Psame");
+if(FILL) gALL09_EEWW_Fill->Draw("Psame");
   if(FILL) gALL15_EEWW_Fill->Draw("Psame");
+  
+  leg2->AddEntry(gALL15_EEWW, " STAR 2015, This work", "p");
+  if(PLOT9) leg2->AddEntry(gALL09_EEWW, " STAR 2009, PRD 95 (2017) 071103", "p");
+  //if(PLOT9) leg2->AddEntry(gSystALL09_EEWW, " 2009 Syst.", "f");
+  //if(PLOT9) leg2->AddEntry(bxLumi09, "2009 Lumi. Syst.", "f");    
+  
+  //leg2->AddEntry(gSystALL15_EEWW, " 2015 Syst.", "f");    
+  //leg2->AddEntry(bxLumi15, "Lumi. Syst.", "f");    
+	if(PLOTGLOBAL && DSSVERR) leg2->AddEntry(ALLdssvEEWW, " DSSV14", "lf");
+  else leg2->AddEntry(ALLdssvEEWW, " DSSV14", "l");
+  if(PLOTGLOBAL) leg2->AddEntry(ALLnnpdfEEWW, " NNPDFpol1.1", "lf");
 
-  text0.DrawLatex(XPOS,YPOS1,"sign(#eta_{1}) = sign(#eta_{2})"); //Changed 
+
+  //text0.DrawLatex(XPOS,YPOS1,"#font[72]{#it{STAR}}#font[62]{, #it{#sqrt{s}} = 200 GeV}");
+  text0.DrawLatex(XPOS,YPOS1,"#font[62]{STAR, #sqrt{#font[72]{s}} = 200 GeV}");
+  //text0.DrawLatex(XPOS,YPOS1,"#font[72]{#color[4]{STAR}} #font[62]{, #sqrt{s} = 200 GeV}");
+  text0.DrawLatex(XPOS,YPOS2,"p+p #rightarrow Jet + Jet + X");
+  text0.DrawLatex(XPOS,YPOS3,"Anti-#it{k_{T}} #it{R} = 0.6");
+  text0.DrawLatex(XPOS,YPOS4,"sign(#it{#eta}_{1}) = sign(#it{#eta}_{2})"); //Changed
+  
+  
+
+
+  textP.DrawLatex(XPOS - XPOS*0.15,YPOS5,"#pm 6.1% (2015) and #pm 6.5% (2009) scale uncertainty from polarization not shown");
+
+
+  cALL->cd();
+  dPad("dRt",0)->cd();
+
+  TGraphErrors *gALL09_EW    = new TGraphErrors(7,EWrun9x,EWrun9y,0,EWrun9yerror);
+  gALL09_EW->SetMarkerColor(4);
+  gALL09_EW->SetLineColor(4);
+  gALL09_EW->SetMarkerStyle(Run9MarkerStyle);   gALL09_EW->SetMarkerSize(1.2);  
+  gALL09_EW->SetLineWidth(3);
+
+  TGraphErrors *gALL09_EW_Fill = new TGraphErrors(7,EWrun9x,EWrun9y,0,0);
+  gALL09_EW_Fill->SetMarkerSize(1.0);
+  gALL09_EW_Fill->SetMarkerStyle(Run9MarkerStyle-4);
+  gALL09_EW_Fill->SetMarkerColor(kWhite);
+
+
+  TGraphErrors *gSystALL09_EW = new TGraphErrors(7, EWrun9x, EWrun9y, EWrun9sysx, EWrun9sysy);
+  gSystALL09_EW->SetMarkerColor(1);
+  gSystALL09_EW->SetFillColorAlpha(kBlue-7,0.80);
+
+  TGraphErrors *gSystALL15_EW = new TGraphErrors(7, EWrun15x, EWrun15y, EWrun15sysx, EWrun15sysy);
+  gSystALL15_EW->SetMarkerColor(1);
+  gSystALL15_EW->SetFillColorAlpha(kGreen+2,0.80); //29
+
+  TGraphErrors *gALL15_EW = new TGraphErrors(7,EWrun15x,EWrun15y,0,EWrun15yerror);
+  gALL15_EW->SetTitle("#it{A_{LL}}; Parton Dijet #it{M}_{inv}/#sqrt{#it{s}} ;#it{A_{LL}}");
+  gALL15_EW->GetYaxis()->SetDecimals(2);
+  gALL15_EW->GetXaxis()->SetDecimals(2);
+  gALL15_EW->GetYaxis()->SetNdivisions(6,5,0);
+  gALL15_EW->GetXaxis()->SetTitleSize(25);
+  gALL15_EW->SetMarkerColor(kGreen+3);
+  gALL15_EW->SetLineColor(kGreen+3);
+  gALL15_EW->SetMarkerStyle(Run15MarkerStyle); /*21*/  gALL15_EW->SetMarkerSize(1.3);
+  gALL15_EW->GetXaxis()->SetLimits(XMIN,XMAX);  //Changed
+  gALL15_EW->GetHistogram()->SetMinimum(YMIN); //Changed -0.02
+  gALL15_EW->GetHistogram()->SetMaximum(YMAX);  //Changed 0.105
+  gALL15_EW->SetLineWidth(3);
+  gALL15_EW->Draw("AP"); 
+
+  TGraphErrors *gALL15_EW_Fill = new TGraphErrors(7,EWrun15x,EWrun15y,0,0);
+  gALL15_EW_Fill->SetMarkerSize(1.1);
+  gALL15_EW_Fill->SetMarkerStyle(Run15MarkerStyle-4);
+  gALL15_EW_Fill->SetMarkerColor(kWhite); //kWhite
+
+  if(PLOTGLOBAL) ALLdssvEW->Draw("cXsame");
+  if(PLOTGLOBAL && DSSVERR) ALLdssvEW->Draw("3same");
+  if(PLOTGLOBAL) ALLnnpdfEW->Draw("3same");
+  if(PLOTGLOBAL) ALLnnpdfEW->Draw("cXsame");
+  
+  if(DSSVERR) dssv_EW_m->Draw("csame");
+  if(DSSVERR) dssv_EW_p->Draw("csame");
+  //nnpdf_EEWW_p->Draw("csame");
+  //nnpdf_EEWW_m->Draw("csame");
+/*
+  TLegend *leglumi9_2 = new TLegend(0.66,lumiypos+0.085,0.870,lumiypos+0.085+0.081);
+  leglumi9_2->SetTextSize(19);
+  leglumi9_2->SetTextFont(43);
+  leglumi9_2->AddEntry("","Lumi. Sys.","");
+  leglumi9_2->AddEntry("","","");
+  leglumi9_2->AddEntry("","2015   2009","");
+  leglumi9_2->SetBorderSize(0);  leglumi9->SetFillStyle(0);
+
+  if(PLOT9)leglumi9_2->Draw();
+  if(PLOT9)bxLumi09->Draw();
+  bxLumi15->Draw();
+  */
+  line->Draw();
+ 
+  
+
+  if(PLOT9) gSystALL09_EW->Draw("2same");
+  if(PLOT9) gALL09_EW->Draw("Psame");
+  gSystALL15_EW->Draw("2same");
+  gALL15_EW->Draw("P"); 
+ if(FILL) gALL09_EW_Fill->Draw("Psame");
+  if(FILL) gALL15_EW_Fill->Draw("Psame");
+
+  text0.DrawLatex(XPOS,YPOS1,"sign(#it{#eta}_{1}) #neq sign(#it{#eta}_{2})"); //Changed 
   leg2->Draw();
 
-  textP.DrawLatex(XPOS - XPOS*0.15,YPOS5,"#pm 6.1% (2015) and 6.5% (2009) scale uncertainty from polarization not shown");
+  //textP.DrawLatex(XPOS - XPOS*0.15,YPOS5,"#pm 6.1% (2015) and 6.5% (2009) scale uncertainty from polarization not shown");
 
 
   //cALL->Draw();
