@@ -22,11 +22,17 @@
 #include "TF1.h"
 #include "TLatex.h"
 
+
+
+
 int chosenEta = 2; // Choose eta region: 0 - forward, 1 - mid, 2 - full
 int chosenTrig = 2; // Choose trigger: 0 - JP1, 1 - JP2, 2 - JP1+JP2
 bool printHisto = true; // Do you want to print histograms?
 string nameHisto = "Sl16d_data_emb"; // Set name tag for all histograms  
-  
+int FILL = 1;
+
+
+
   int colors[3] = {2,4,8};
   int markers[3] = {22,21,20};
   int markersr[3] = {26,25,24};
@@ -47,7 +53,8 @@ TH1D* hRatio(TH1D* hdata, TH1D* hemb, int mar, int col) {
   ratio->SetBit(TH1::kNoTitle);
   ratio->SetLineWidth(2);
   ratio->GetYaxis()->SetTitle("#frac{Data-Simu}{Data}");
-  ratio->GetXaxis()->SetTitle("Dijet M_{inv} (GeV/c^{2})");
+  ratio->GetXaxis()->SetTitle("Dijet #it{M}_{inv} (GeV/#it{c}^{2})");
+  ratio->GetXaxis()->SetTickLength(0.075);
   ratio->GetYaxis()->CenterTitle();
   ratio->GetYaxis()->SetRangeUser(-0.3,0.3);
  
@@ -175,7 +182,7 @@ void MassDataEmbPaper_OneRatio(){
       SetHistogramOptions( hR15EmbMass[i], hR15DataMass[i], i);
 
       hR15EmbMass[i]->GetXaxis()->SetRangeUser(17 , 79);
-      hR15EmbMass[i]->GetXaxis()->SetTitle("M_{inv}");
+      hR15EmbMass[i]->GetXaxis()->SetTitle("#it{M_{inv}}");
       hR15DataMass[i]->GetXaxis()->SetRangeUser(17, 79);
   }
 
@@ -184,7 +191,8 @@ void MassDataEmbPaper_OneRatio(){
 
 // Second axis with labels
   //const char *ParMass[7]  = {"18.8", "22.0", "26.8", "32.7", "39.7", "49.6", "68.3"}; 
-  const char *ParMass[7]  = {"20.4", "23.6", "28.4", "34.3", "41.2", "51.1", "69.7"};
+  //const char *ParMass[7]  = {"20.4", "23.6", "28.4", "34.3", "41.2", "51.1", "69.7"};
+  const char *ParMass[7]  = {"20.38", "23.58", "28.40", "34.28", "41.20", "51.05", "69.68"};
   TH1D *hEmbDijetMassCopy = (TH1D*)hR15EmbMass[1]->Clone("hEmbDijetMassCopy");
   hEmbDijetMassCopy->Reset();
   hEmbDijetMassCopy->SetLineColor(kBlack);
@@ -194,7 +202,11 @@ void MassDataEmbPaper_OneRatio(){
   hEmbDijetMassCopy->LabelsOption("v");
   hEmbDijetMassCopy->GetXaxis()->SetLabelOffset(-0.005); //0.037
   hEmbDijetMassCopy->GetXaxis()->SetTitleOffset(0.7); //3.0
-  hEmbDijetMassCopy->GetXaxis()->SetTitle("Parton Dijet M_{inv} (GeV/c^{2})");
+  hEmbDijetMassCopy->GetXaxis()->SetTitle("Parton Dijet #it{M}_{inv} (GeV/#it{c}^{2})");
+  //hEmbDijetMassCopy->GetXaxis()->SetTitle("Parton Dijet #it{M_{inv}} (GeV/c)");
+
+
+  
 
   
 
@@ -228,16 +240,25 @@ void MassDataEmbPaper_OneRatio(){
 
   // Pad with yields
   upPad("uMass",1)->cd();
-  hR15EmbMass[1]->GetYaxis()->SetRangeUser(1.1, 100000000);
+  //hR15EmbMass[1]->GetYaxis()->SetRangeUser(1.1, 100000000);
+  hR15EmbMass[1]->GetYaxis()->SetRangeUser(1.1, 700000000);
 
 
   //Draw Shorter Axis
-  TGaxis *axis = new TGaxis(17,1.1,17,10000000,1.1,10000000,50510,"G");
+  //TGaxis *axis = new TGaxis(17,1.1,17,10000000,1.1,10000000,50510,"G");
+  TGaxis *axis = new TGaxis(17,1.1,17,20000000,1.1,20000000,50510,"G");
   axis->SetName("axis");
   axis->SetLabelFont(43);
   axis->SetLabelSize(25);
   hR15EmbMass[1]->GetYaxis()->SetLabelSize(0);
   hR15EmbMass[1]->GetYaxis()->SetTickLength(0);
+  
+
+//BIN EDGE CODE
+  TExec *ex = new TExec("ex","DrawBinEdges();");
+  hR15DataMass[0]->GetListOfFunctions()->Add(ex);
+//
+
 
 
   hR15EmbMass[1]->Draw("hist");
@@ -260,6 +281,8 @@ void MassDataEmbPaper_OneRatio(){
   cMass->cd();
 
   
+
+  
   // Pad with simu-data for JP2
   dPad("dMass")->cd();
   TLine *line = new TLine(17,0,82,0);
@@ -270,9 +293,13 @@ void MassDataEmbPaper_OneRatio(){
 
   line->Draw();
 
+  
+  hRatio(hR15DataMass[0],hR15EmbMass[0],markersr[0]-4,10)->Draw("same");
   hRatio(hR15DataMass[0],hR15EmbMass[0],markersr[0],colors[0])->Draw("same");
+  hRatio(hR15DataMass[1],hR15EmbMass[1],markersr[1]-4,10)->Draw("same");
   hRatio(hR15DataMass[1],hR15EmbMass[1],markersr[1],colors[1])->Draw("Same");
   
+cout << " Last Bin: " << hRatio(hR15DataMass[1],hR15EmbMass[1],markersr[1],colors[1])->GetBinContent(8) << endl;
 
   cMass->Draw();
   
@@ -280,6 +307,33 @@ void MassDataEmbPaper_OneRatio(){
   
   cMass->Draw(); 
 
+
+
+/*
+  //TEMP
+  //Extracting values for table
+  ofstream PrintOut("./out.txt");
+double BinEdges[9] = {17.0, 19.0, 23.0, 28.0, 34.0, 41.0, 58.0, 82.0, 120.0};
+  PrintOut << " Mass Bin , JP1 Data, JP1 Data Err, JP1 Embedding, JP1 Embedding Err, JP2 Data, JP2 Data Err, JP2 Embedding, JP2 Embedding Err, JP1 Ratio, JP1 Ratio Err, JP2 Ratio, JP2 Ratio Err" << endl;
+  for (int i = 2; i < 9; i++)
+  {
+    //PrintOut << setprecision(7) << BinEdges[i-2] << "-" << BinEdges[i-1] << " GeV/c^2 , " <<  hR15DataMass[0]->GetBinContent(i) << " , " << hR15EmbMass[0]->GetBinContent(i) << " , " << hR15DataMass[1]->GetBinContent(i) << " , " << hR15EmbMass[1]->GetBinContent(i) << " , " << (hR15DataMass[0]->GetBinContent(i) - hR15EmbMass[0]->GetBinContent(i))/hR15DataMass[0]->GetBinContent(i) << " , " << (hR15DataMass[1]->GetBinContent(i) - hR15EmbMass[1]->GetBinContent(i))/hR15DataMass[1]->GetBinContent(i) << endl;
+    PrintOut << setprecision(7) << BinEdges[i-2] << "-" << BinEdges[i-1] << " GeV/c^2 , " <<  hR15DataMass[0]->GetBinContent(i) << " , " << hR15DataMass[0]->GetBinError(i) << " , " << hR15EmbMass[0]->GetBinContent(i) << "," << hR15EmbMass[0]->GetBinError(i) << " , " << hR15DataMass[1]->GetBinContent(i) << " , " << hR15DataMass[1]->GetBinError(i) << " , " << hR15EmbMass[1]->GetBinContent(i) << "," << hR15EmbMass[1]->GetBinError(i) << " , " << hRatio(hR15DataMass[0],hR15EmbMass[0],markersr[0],colors[0])->GetBinContent(i) << " , " << hRatio(hR15DataMass[0],hR15EmbMass[0],markersr[0],colors[0])->GetBinError(i) << " , " << hRatio(hR15DataMass[1],hR15EmbMass[1],markersr[1],colors[1])->GetBinContent(i) << " , " << hRatio(hR15DataMass[1],hR15EmbMass[1],markersr[1],colors[1])->GetBinError(i) << endl;
+  }
+*/
   cMass->Print("./Figures/Run15Dijet_MassComparison_OneRatio.pdf");
  
 }
+
+
+// CODE FOR BIN EDGES
+   void DrawBinEdges()
+   {
+   TLine *l;
+    double BinEdges[8] = {17.0, 19.0, 23.0, 28.0, 34.0, 41.0, 58.0, 82.0};
+    for (int i=1; i<7; i++) { //changed range to skip first and last edges
+        l = new TLine(BinEdges[i],400000000,BinEdges[i],700000000);
+        l->SetLineWidth(1);
+        l->Draw();
+    }
+   }
